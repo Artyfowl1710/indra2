@@ -98,120 +98,132 @@ Quarterly voyage scheduling across multiple shipments:
 
 ---
 
-## 🚀 Quick Setup
+## 🚀 Quick Setup & Installation
+
+INDRA supports two flexible operating modes:
+1. **Cloud API Mode (Recommended & Default)**: Fast, lightweight, zero GPU or model downloads required. Uses cloud APIs (OpenRouter, Gemini, OpenAI, Claude). Ready in 2 minutes.
+2. **Sovereign Local Mode (Air-Gapped)**: For air-gapped deployments with dedicated NVIDIA GPUs running local GGUF models via llama-swap.
+
+---
 
 ### Prerequisites
 
-| Tool | Version | Notes |
-|------|---------|-------|
-| Python | ≥ 3.11 | Required for agent backend |
-| Node.js | ≥ 20 | Required for web dashboard |
-| pnpm | ≥ 9 | Package manager for web |
-| Git | any | |
+| Tool | Version | Purpose |
+|------|---------|---------|
+| **Python** | ≥ 3.10 | AI Agent backend & CLI |
+| **uv** | Latest | Ultra-fast Python package & environment manager (`pip install uv`) |
+| **Node.js** | ≥ 20 | Web UI Dashboard |
+| **pnpm** | ≥ 9 | Frontend package manager (`npm install -g pnpm`) |
+| **Git** | Any | Version control |
 
-### 1. Clone the Repository
+---
 
+### ⚡ 1-Click Automated Startup (Windows)
+
+We provide turnkey PowerShell scripts for instant setup and launch:
+
+```powershell
+# 1. Run Setup Wizard (API Mode — default, skips heavy GGUF downloads)
+.\install-indra.ps1 -Mode api
+
+# 2. Start all services and launch dashboard
+.\start-indra.ps1 -Mode api
+
+# To stop all running services at any time:
+.\start-indra.ps1 -Stop
+```
+
+---
+
+### 🛠️ Manual Step-by-Step Setup
+
+#### Step 1: Clone the Repository
 ```powershell
 git clone https://github.com/Artyfowl1710/indra2.git
 cd indra2
 ```
 
-### 2. Set Up the Hermes Agent (Core AI)
-
+#### Step 2: Configure Environment & API Keys
 ```powershell
 cd SIH-26/hermes-agent
-
-# Create virtual environment
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-
-# Install dependencies
-pip install -e ".[all]"
-```
-
-Copy and configure environment variables:
-```powershell
 Copy-Item .env.example .env
-# Edit .env with your API keys (OpenRouter, etc.)
 ```
+Open `.env` and set your OpenRouter API key (free tier supported):
+```ini
+OPENROUTER_API_KEY=sk-or-v1-your-key-here
+```
+*(Default free model: `dots-studio/dots-3-note-preview:free` is pre-configured in `config.yaml`)*
 
-### 3. Set Up the AI Workbench Backend
-
+#### Step 3: Install Python Dependencies (Using `uv`)
+`uv` ensures dependency isolation and eliminates virtual environment issues:
 ```powershell
-cd SIH-26/hermes-agent/backend
-
-# Install backend dependencies
-pip install -r requirements.txt
-
-# Configure backend environment
-Copy-Item .env.example .env
-
-# Initialize database
-python check_db.py
-
-# Start the backend server
-.\start-backend.ps1
+# From SIH-26/hermes-agent
+pip install uv
+uv sync
 ```
 
-The backend will be available at: `http://localhost:8000`
+#### Step 4: Launch the Hermes AI Backend (Port 9119)
+```powershell
+uv run hermes dashboard --port 9119 --host 127.0.0.1 --no-open --skip-build
+```
+> The backend is now alive at `http://127.0.0.1:9119`. You can verify status via `http://127.0.0.1:9119/api/status`.
 
-### 4. Set Up & Run the Web Dashboard
-
+#### Step 5: Start the Maritime React Web Dashboard (Port 5173)
+In a **new terminal**:
 ```powershell
 cd SIH-26/hermes-agent/web
-
-# Install dependencies
+npm install -g pnpm       # if not already installed
 pnpm install
-
-# Start development server
 pnpm dev
 ```
-
-The dashboard will open at: `http://localhost:5173`
-
-### 5. Launch the Hermes Agent
-
-In a new terminal:
-```powershell
-cd SIH-26/hermes-agent
-.\venv\Scripts\Activate.ps1
-
-# Launch the full Indra dashboard (agent + gateway)
-python cli.py dashboard
-```
-
-Or use the gateway for background automation:
-```powershell
-python cli.py gateway
-```
+> The dashboard will open at **`http://localhost:5173`**, with real-time proxying to the backend at `:9119`.
 
 ---
 
-## 🖥️ All Service URLs
+### 🖥️ All Service URLs
 
 | Service | URL | Description |
 |---------|-----|-------------|
-| **Indra Dashboard (Agent UI)** | `http://127.0.0.1:9119` | Main AI agent interface |
-| **Maritime Dashboard (Web)** | `http://localhost:5173` | React maritime analytics UI |
-| **AI Workbench API** | `http://127.0.0.1:8000/docs` | FastAPI + Swagger docs |
-| **Llama-Swap Engine** | `http://127.0.0.1:8100/ui/` | Local model management UI |
+| **Maritime Intelligence Dashboard** | `http://localhost:5173` | React TypeScript analytics UI (Vite) |
+| **Hermes AI Backend & API** | `http://127.0.0.1:9119` | FastAPI server, WebSocket chat & RAG |
+| **AI Advisor Endpoint** | `http://127.0.0.1:9119/api/advisor/chat` | Autonomous East Coast freight forecaster |
+| **Llama-Swap Engine (Local Mode Only)** | `http://127.0.0.1:8100/ui/` | Local GGUF model manager |
+| **AI Workbench API (Local Mode Only)** | `http://127.0.0.1:8000/docs` | Swagger interactive API docs |
 
 ---
 
-## ⚡ One-Click Windows Installer (Hackathon Mode)
+### 🔧 Troubleshooting & Known Issues
 
-For judges and evaluators, a fully automated installer is provided:
+#### 1. `ModuleNotFoundError: No module named 'prompt_toolkit'`
+- **Cause**: Running `python cli.py` directly with your global system Python instead of the isolated environment.
+- **Fix**: Always run commands using `uv run`:
+  ```powershell
+  uv run hermes dashboard --port 9119 --host 127.0.0.1 --no-open --skip-build
+  ```
+  Or activate the virtualenv first:
+  ```powershell
+  .\.venv\Scripts\Activate.ps1
+  hermes dashboard
+  ```
 
-1. Right-click `install-indra.ps1` → **Run with PowerShell**
-2. The script will:
-   - Auto-download required GGUF models from HuggingFace
-   - Verify SHA-256 signatures
-   - Configure model routing matrix
-   - Set up backend services
-   - Create an **INDRA Dashboard** shortcut on your Desktop
-3. Double-click the shortcut to launch everything
+#### 2. `ERR_PNPM_IGNORED_BUILDS` or `pnpm approve-builds` prompt
+- **Cause**: pnpm v10+ requires explicit authorization for packages with build scripts (e.g. `unicode-animations`).
+- **Fix**: The repository already includes `pnpm-workspace.yaml` with `allowBuilds: unicode-animations: true`. If prompted, simply run:
+  ```powershell
+  pnpm approve-builds --all
+  pnpm install
+  ```
 
-> ⚠️ First launch takes ~10 seconds for backend services to initialize.
+#### 3. Port Conflicts (`EADDRINUSE` / Port 9119 or 5173 already running)
+- **Fix**: Stop any existing Hermes or Vite processes cleanly:
+  ```powershell
+  .\start-indra.ps1 -Stop
+  # Or via CLI:
+  uv run hermes dashboard --stop
+  ```
+
+#### 4. "Do I need to download 15+ GB of local models?"
+- **Answer**: **No!** By default, INDRA operates in **Cloud API Mode**. It connects to OpenRouter (or OpenAI / Gemini / Claude) directly via API. Local model downloads are only required if you explicitly choose `-Mode local` for an air-gapped system.
 
 ---
 

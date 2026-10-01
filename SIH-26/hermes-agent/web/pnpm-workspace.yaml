@@ -1,2 +1,2 @@
 allowBuilds:
-  unicode-animations: set this to true or false
+  unicode-animations: true

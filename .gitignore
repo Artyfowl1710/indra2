@@ -1,0 +1,115 @@
+# ─── Models & Binaries ────────────────────────────────────────────────────────
+*.gguf
+*.bin
+*.exe
+*.zip
+
+# ─── Secrets & Credentials ────────────────────────────────────────────────────
+.env
+.env.*
+auth.json
+install_id
+*.lock
+
+# ─── Python ───────────────────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# ─── Node / JS ────────────────────────────────────────────────────────────────
+node_modules/
+.pnpm-store/
+package-lock.json
+
+# ─── Runtime State & Databases ────────────────────────────────────────────────
+*.db
+*.db-shm
+*.db-wal
+*.db-*
+*.log
+*.etag
+*.bak.*
+
+# ─── SIH-26 Hermes Runtime Data (NOT code, do NOT commit) ─────────────────────
+SIH-26/.curator_backups/
+SIH-26/.hermes_history
+SIH-26/.skills_prompt_snapshot.json
+SIH-26/.pnpm-store/
+SIH-26/logs/
+SIH-26/cache/
+SIH-26/audio_cache/
+SIH-26/image_cache/
+SIH-26/sessions/
+SIH-26/terminal-sessions/
+SIH-26/spawn-trees/
+SIH-26/sandboxes/
+SIH-26/pending_messages/
+SIH-26/images/
+SIH-26/pastes/
+SIH-26/attachments/
+SIH-26/backups/
+SIH-26/cron/
+SIH-26/pairing/
+SIH-26/state/
+SIH-26/models_dev_cache.*
+SIH-26/provider_models_cache.json
+SIH-26/context_length_cache.yaml
+SIH-26/gateway_state.json
+SIH-26/spawn-ledger.json
+SIH-26/web-ui-build-stamp.json
+SIH-26/tui-theme-boot.json
+SIH-26/channel_directory.json
+SIH-26/mcp-tokens/
+SIH-26/memories/
+SIH-26/plugin-data/
+SIH-26/runtime/
+SIH-26/data/
+SIH-26/skills/
+SIH-26/skins/
+SIH-26/node/
+SIH-26/bin/
+SIH-26/plugins/
+SIH-26/kanban/
+SIH-26/gateway-service/
+SIH-26/dashboard-themes/
+SIH-26/desktop/
+SIH-26/docker-config/
+SIH-26/platforms/
+SIH-26/node_modules/
+
+# ─── Binary / Compiled Files ──────────────────────────────────────────────────
+*.dll
+*.so
+*.dylib
+SIH-26/hermes-agent/backend/bin/
+
+# ─── hermes-agent Non-Code Bulk ───────────────────────────────────────────────
+SIH-26/hermes-agent/contributors/
+SIH-26/hermes-agent/website/
+SIH-26/hermes-agent/optional-skills/
+SIH-26/hermes-agent/optional-mcps/
+SIH-26/hermes-agent/evals/
+SIH-26/hermes-agent/nix/
+SIH-26/hermes-agent/tests/
+SIH-26/hermes-agent/mcp-research-data/
+SIH-26/hermes-agent/datagen-config-examples/
+SIH-26/hermes-agent/assets/
+SIH-26/hermes-agent/locales/
+SIH-26/hermes-agent/native/
+
+# ─── Generated Outputs ────────────────────────────────────────────────────────
+MyVault/
+Obsidian Vault/
+output/
+extracted_PINN.txt
+generate_artifacts.py
+
+# ─── Editor Files ─────────────────────────────────────────────────────────────
+.vscode/
+.idea/

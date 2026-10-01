@@ -1,0 +1,177 @@
+{
+  "vessel_classes": {
+    "handysize": {
+      "id": "handysize",
+      "name": "Handysize",
+      "dwt_min": 15000,
+      "dwt_max": 35000,
+      "typical_dwt": 28000,
+      "loa_min_m": 150,
+      "loa_max_m": 180,
+      "typical_loa_m": 170,
+      "beam_min_m": 27,
+      "beam_max_m": 32,
+      "typical_beam_m": 28,
+      "draft_min_m": 9.0,
+      "draft_max_m": 10.5,
+      "typical_draft_m": 10.0,
+      "speed_laden_knots": 13.5,
+      "speed_ballast_knots": 14.5,
+      "fuel_consumption_laden_mt_day": 25,
+      "fuel_consumption_ballast_mt_day": 22,
+      "fuel_consumption_port_mt_day": 4,
+      "holds": 5,
+      "has_gear": true,
+      "gear_description": "4 x 30MT cranes",
+      "charter_rate_range_usd_day": {
+        "low": 8000,
+        "avg": 12000,
+        "high": 22000
+      },
+      "port_charges_estimate_usd": {
+        "loading": 35000,
+        "discharge_india": 45000
+      },
+      "typical_cargo_parcels_mt": [15000, 20000, 25000, 28000, 32000],
+      "suitable_for": ["coastal_trade", "small_parcels", "restricted_ports", "geared_operations"],
+      "description": "Smallest ocean-going bulk carrier. Self-geared — can operate at ports without shore cranes. Ideal for draft-restricted ports like Haldia."
+    },
+    "supramax": {
+      "id": "supramax",
+      "name": "Supramax / Ultramax",
+      "dwt_min": 45000,
+      "dwt_max": 65000,
+      "typical_dwt": 58000,
+      "loa_min_m": 180,
+      "loa_max_m": 200,
+      "typical_loa_m": 190,
+      "beam_min_m": 30,
+      "beam_max_m": 32.3,
+      "typical_beam_m": 32,
+      "draft_min_m": 11.5,
+      "draft_max_m": 13.5,
+      "typical_draft_m": 12.8,
+      "speed_laden_knots": 14.0,
+      "speed_ballast_knots": 15.0,
+      "fuel_consumption_laden_mt_day": 32,
+      "fuel_consumption_ballast_mt_day": 28,
+      "fuel_consumption_port_mt_day": 5,
+      "holds": 5,
+      "has_gear": true,
+      "gear_description": "4 x 35MT cranes",
+      "charter_rate_range_usd_day": {
+        "low": 10000,
+        "avg": 15000,
+        "high": 30000
+      },
+      "port_charges_estimate_usd": {
+        "loading": 45000,
+        "discharge_india": 55000
+      },
+      "typical_cargo_parcels_mt": [40000, 45000, 50000, 55000, 58000],
+      "suitable_for": ["mid_haul", "moderate_parcels", "versatile", "geared_operations"],
+      "description": "Workhorse of dry bulk trade. Self-geared and versatile. Fits most East Coast ports except Haldia. Cost-effective for 40-55K MT parcels."
+    },
+    "panamax": {
+      "id": "panamax",
+      "name": "Panamax / Kamsarmax",
+      "dwt_min": 65000,
+      "dwt_max": 85000,
+      "typical_dwt": 75000,
+      "loa_min_m": 225,
+      "loa_max_m": 230,
+      "typical_loa_m": 229,
+      "beam_min_m": 32.0,
+      "beam_max_m": 32.3,
+      "typical_beam_m": 32.26,
+      "draft_min_m": 13.0,
+      "draft_max_m": 14.5,
+      "typical_draft_m": 14.33,
+      "speed_laden_knots": 14.0,
+      "speed_ballast_knots": 15.0,
+      "fuel_consumption_laden_mt_day": 38,
+      "fuel_consumption_ballast_mt_day": 33,
+      "fuel_consumption_port_mt_day": 6,
+      "holds": 7,
+      "has_gear": false,
+      "gear_description": "Gearless — requires shore cranes",
+      "charter_rate_range_usd_day": {
+        "low": 12000,
+        "avg": 18000,
+        "high": 35000
+      },
+      "port_charges_estimate_usd": {
+        "loading": 55000,
+        "discharge_india": 65000
+      },
+      "typical_cargo_parcels_mt": [60000, 65000, 70000, 75000],
+      "suitable_for": ["long_haul", "large_parcels", "coal_trade", "grain_trade"],
+      "description": "Named for original Panama Canal max beam (32.31m). Gearless — requires mechanized berths. Best economics for Australia-India coal at 65-75K MT. Fits Paradip, Dhamra, Gangavaram. Too large for Haldia, Gopalpur."
+    },
+    "capesize": {
+      "id": "capesize",
+      "name": "Capesize",
+      "dwt_min": 100000,
+      "dwt_max": 210000,
+      "typical_dwt": 180000,
+      "loa_min_m": 270,
+      "loa_max_m": 300,
+      "typical_loa_m": 292,
+      "beam_min_m": 43,
+      "beam_max_m": 50,
+      "typical_beam_m": 45,
+      "draft_min_m": 17.0,
+      "draft_max_m": 18.5,
+      "typical_draft_m": 18.2,
+      "speed_laden_knots": 14.5,
+      "speed_ballast_knots": 15.5,
+      "fuel_consumption_laden_mt_day": 55,
+      "fuel_consumption_ballast_mt_day": 45,
+      "fuel_consumption_port_mt_day": 8,
+      "holds": 9,
+      "has_gear": false,
+      "gear_description": "Gearless — requires shore cranes",
+      "charter_rate_range_usd_day": {
+        "low": 15000,
+        "avg": 25000,
+        "high": 55000
+      },
+      "port_charges_estimate_usd": {
+        "loading": 75000,
+        "discharge_india": 85000
+      },
+      "typical_cargo_parcels_mt": [130000, 150000, 170000, 180000],
+      "suitable_for": ["ultra_long_haul", "massive_parcels", "iron_ore", "coal_major"],
+      "description": "Largest common dry bulk carrier. Too large for Panama Canal (hence 'Cape' — routes via Cape of Good Hope). Only Dhamra, Gangavaram, and Sagar-Sandheads (STS) can handle on India's East Coast. Lowest cost per MT on suitable routes."
+    }
+  },
+  "auxiliary_data": {
+    "bunker_fuel_types": {
+      "vlsfo": {
+        "name": "VLSFO (Very Low Sulphur Fuel Oil)",
+        "sulphur_pct": 0.5,
+        "price_range_usd_mt": {"low": 450, "avg": 580, "high": 750},
+        "description": "IMO 2020 compliant fuel. Standard for most vessels."
+      },
+      "hsfo": {
+        "name": "HSFO (High Sulphur Fuel Oil)",
+        "sulphur_pct": 3.5,
+        "price_range_usd_mt": {"low": 350, "avg": 450, "high": 600},
+        "description": "Cheaper but requires scrubber-fitted vessel."
+      },
+      "mgo": {
+        "name": "MGO (Marine Gas Oil)",
+        "sulphur_pct": 0.1,
+        "price_range_usd_mt": {"low": 650, "avg": 800, "high": 1000},
+        "description": "Used in ECA zones and port operations."
+      }
+    },
+    "cost_factors": {
+      "insurance_pct_of_freight": 1.5,
+      "brokerage_pct_of_freight": 1.25,
+      "canal_dues_suez_usd": {"handysize": 120000, "supramax": 180000, "panamax": 250000, "capesize": 400000},
+      "demurrage_rate_usd_day": {"handysize": 8000, "supramax": 12000, "panamax": 15000, "capesize": 25000},
+      "despatch_rate_pct_of_demurrage": 50
+    }
+  }
+}

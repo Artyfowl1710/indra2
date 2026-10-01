@@ -1,0 +1,141 @@
+{
+  "source": "World Bank Open Data API (pre-fetched for offline demo)",
+  "last_updated": "2025-09-01",
+  "note": "Production deployment fetches live data via worldbank_client.py. This cache ensures demo works offline.",
+  "indicators": {
+    "india_gdp_growth_pct": {
+      "indicator_id": "NY.GDP.MKTP.KD.ZG",
+      "description": "India GDP growth (annual %)",
+      "unit": "percent",
+      "data": {
+        "2019": 3.7, "2020": -5.8, "2021": 9.7, "2022": 7.0,
+        "2023": 7.8, "2024": 6.5, "2025": 6.3
+      }
+    },
+    "india_coal_imports_mt": {
+      "indicator_id": "derived",
+      "description": "India total coal imports (million MT)",
+      "unit": "million_mt",
+      "source": "Ministry of Coal / Coal Controller's Organization",
+      "data": {
+        "2019": 248.5, "2020": 215.3, "2021": 232.8, "2022": 265.4,
+        "2023": 281.7, "2024": 292.0, "2025": 298.0
+      }
+    },
+    "india_thermal_coal_imports_mt": {
+      "indicator_id": "derived",
+      "description": "India thermal coal imports (million MT)",
+      "unit": "million_mt",
+      "data": {
+        "2019": 175.2, "2020": 148.9, "2021": 162.1, "2022": 188.6,
+        "2023": 199.3, "2024": 206.0, "2025": 210.0
+      }
+    },
+    "india_coking_coal_imports_mt": {
+      "indicator_id": "derived",
+      "description": "India coking coal imports (million MT)",
+      "unit": "million_mt",
+      "data": {
+        "2019": 51.8, "2020": 47.2, "2021": 54.6, "2022": 57.3,
+        "2023": 60.1, "2024": 62.0, "2025": 63.0
+      }
+    },
+    "global_trade_growth_pct": {
+      "indicator_id": "NE.TRD.GNFS.ZS",
+      "description": "Global merchandise trade growth (%)",
+      "unit": "percent",
+      "data": {
+        "2019": -0.1, "2020": -7.8, "2021": 10.1, "2022": 2.7,
+        "2023": -1.2, "2024": 2.8, "2025": 3.2
+      }
+    },
+    "india_inflation_cpi_pct": {
+      "indicator_id": "FP.CPI.TOTL.ZG",
+      "description": "India Consumer Price Inflation (%)",
+      "unit": "percent",
+      "data": {
+        "2019": 4.8, "2020": 6.2, "2021": 5.1, "2022": 6.7,
+        "2023": 5.4, "2024": 4.9, "2025": 4.5
+      }
+    },
+    "china_gdp_growth_pct": {
+      "indicator_id": "NY.GDP.MKTP.KD.ZG",
+      "description": "China GDP growth (annual %) — major driver of global dry bulk demand",
+      "unit": "percent",
+      "data": {
+        "2019": 5.9, "2020": 2.2, "2021": 8.4, "2022": 3.0,
+        "2023": 5.2, "2024": 4.6, "2025": 4.2
+      }
+    },
+    "bdi_annual_avg": {
+      "indicator_id": "derived",
+      "description": "Baltic Dry Index annual average",
+      "unit": "index",
+      "source": "Baltic Exchange (historical reference)",
+      "data": {
+        "2019": 1353, "2020": 1066, "2021": 2943, "2022": 1934,
+        "2023": 1378, "2024": 1780, "2025": 1650
+      }
+    },
+    "newcastle_coal_price_usd_mt": {
+      "indicator_id": "derived",
+      "description": "Newcastle benchmark thermal coal price (FOB, USD/MT)",
+      "unit": "usd_per_mt",
+      "source": "globalCOAL / IHS McCloskey (historical reference)",
+      "data": {
+        "2019": 77, "2020": 60, "2021": 138, "2022": 352,
+        "2023": 165, "2024": 142, "2025": 130
+      }
+    },
+    "india_power_generation_twh": {
+      "indicator_id": "derived",
+      "description": "India total power generation (TWh) — driver of thermal coal demand",
+      "unit": "twh",
+      "source": "Central Electricity Authority",
+      "data": {
+        "2019": 1558, "2020": 1532, "2021": 1624, "2022": 1749,
+        "2023": 1862, "2024": 1950, "2025": 2020
+      }
+    },
+    "india_steel_production_mt": {
+      "indicator_id": "derived",
+      "description": "India crude steel production (million MT) — driver of coking coal demand",
+      "unit": "million_mt",
+      "source": "World Steel Association",
+      "data": {
+        "2019": 111.2, "2020": 99.6, "2021": 118.1, "2022": 124.7,
+        "2023": 138.5, "2024": 147.0, "2025": 155.0
+      }
+    },
+    "usd_inr_exchange_rate": {
+      "indicator_id": "PA.NUS.FCRF",
+      "description": "USD/INR exchange rate (annual average)",
+      "unit": "inr_per_usd",
+      "data": {
+        "2019": 70.4, "2020": 74.1, "2021": 73.9, "2022": 78.6,
+        "2023": 82.6, "2024": 83.4, "2025": 84.2
+      }
+    },
+    "brent_crude_usd_barrel": {
+      "indicator_id": "derived",
+      "description": "Brent crude oil price (annual average, USD/barrel) — correlates with bunker fuel costs",
+      "unit": "usd_per_barrel",
+      "source": "EIA",
+      "data": {
+        "2019": 64.3, "2020": 41.7, "2021": 70.9, "2022": 100.9,
+        "2023": 82.6, "2024": 79.5, "2025": 75.0
+      }
+    }
+  },
+  "monthly_bdi": {
+    "description": "Monthly BDI averages for 2024-2025 for seasonal analysis",
+    "data": {
+      "2024-01": 1685, "2024-02": 1523, "2024-03": 1812, "2024-04": 1890,
+      "2024-05": 1956, "2024-06": 1745, "2024-07": 1622, "2024-08": 1589,
+      "2024-09": 1834, "2024-10": 2012, "2024-11": 1923, "2024-12": 1789,
+      "2025-01": 1567, "2025-02": 1489, "2025-03": 1678, "2025-04": 1734,
+      "2025-05": 1812, "2025-06": 1645, "2025-07": 1534, "2025-08": 1498,
+      "2025-09": 1723
+    }
+  }
+}

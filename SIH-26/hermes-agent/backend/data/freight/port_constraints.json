@@ -1,0 +1,547 @@
+{
+  "discharge_ports": {
+    "paradip": {
+      "id": "paradip",
+      "name": "Paradip Port",
+      "country": "India",
+      "coast": "East",
+      "state": "Odisha",
+      "lat": 20.2644,
+      "lon": 86.6709,
+      "channel_depth_m": 17.1,
+      "anchorage_depth_m": 20.0,
+      "tidal_range_m": 2.1,
+      "pilotage_required": true,
+      "berths": [
+        {
+          "name": "CQ-1 (Coal Jetty)",
+          "max_loa_m": 300,
+          "max_beam_m": 46,
+          "max_draft_m": 14.5,
+          "handling_rate_mt_day": 25000,
+          "cargo_types": ["coal", "thermal_coal", "coking_coal"],
+          "mechanized": true
+        },
+        {
+          "name": "CQ-2 (Coal Jetty)",
+          "max_loa_m": 300,
+          "max_beam_m": 46,
+          "max_draft_m": 14.5,
+          "handling_rate_mt_day": 25000,
+          "cargo_types": ["coal", "thermal_coal", "coking_coal"],
+          "mechanized": true
+        },
+        {
+          "name": "Iron Ore Berth (IOB)",
+          "max_loa_m": 280,
+          "max_beam_m": 45,
+          "max_draft_m": 14.0,
+          "handling_rate_mt_day": 20000,
+          "cargo_types": ["iron_ore", "bulk"],
+          "mechanized": true
+        },
+        {
+          "name": "Multi-Purpose Berth (MPB)",
+          "max_loa_m": 230,
+          "max_beam_m": 36,
+          "max_draft_m": 12.5,
+          "handling_rate_mt_day": 12000,
+          "cargo_types": ["fertilizer", "bulk", "general"],
+          "mechanized": false
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax"],
+      "avg_turnaround_days": 4.5,
+      "avg_waiting_days": 2.0,
+      "notes": "Major coal import hub. Berth specs per Paradip Port Authority published specifications. Capesize partially feasible at CQ berths with tidal window."
+    },
+    "dhamra": {
+      "id": "dhamra",
+      "name": "Dhamra Port",
+      "country": "India",
+      "coast": "East",
+      "state": "Odisha",
+      "lat": 20.7520,
+      "lon": 86.9550,
+      "channel_depth_m": 18.0,
+      "anchorage_depth_m": 22.0,
+      "tidal_range_m": 4.5,
+      "pilotage_required": true,
+      "berths": [
+        {
+          "name": "Berth 1 (Deep Draft)",
+          "max_loa_m": 300,
+          "max_beam_m": 50,
+          "max_draft_m": 18.0,
+          "handling_rate_mt_day": 40000,
+          "cargo_types": ["coal", "thermal_coal", "coking_coal", "iron_ore"],
+          "mechanized": true
+        },
+        {
+          "name": "Berth 2 (Deep Draft)",
+          "max_loa_m": 300,
+          "max_beam_m": 50,
+          "max_draft_m": 18.0,
+          "handling_rate_mt_day": 40000,
+          "cargo_types": ["coal", "thermal_coal", "coking_coal", "iron_ore"],
+          "mechanized": true
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "avg_turnaround_days": 3.5,
+      "avg_waiting_days": 1.5,
+      "notes": "Deepwater port capable of handling Capesize vessels. Operated by Adani Ports."
+    },
+    "gangavaram": {
+      "id": "gangavaram",
+      "name": "Gangavaram Port",
+      "country": "India",
+      "coast": "East",
+      "state": "Andhra Pradesh",
+      "lat": 17.6233,
+      "lon": 83.2417,
+      "channel_depth_m": 21.0,
+      "anchorage_depth_m": 24.0,
+      "tidal_range_m": 1.5,
+      "pilotage_required": true,
+      "berths": [
+        {
+          "name": "Berth 1 (Coal/Bulk)",
+          "max_loa_m": 300,
+          "max_beam_m": 50,
+          "max_draft_m": 18.5,
+          "handling_rate_mt_day": 45000,
+          "cargo_types": ["coal", "thermal_coal", "coking_coal", "iron_ore", "limestone"],
+          "mechanized": true
+        },
+        {
+          "name": "Berth 2 (Multi-Purpose)",
+          "max_loa_m": 260,
+          "max_beam_m": 40,
+          "max_draft_m": 16.5,
+          "handling_rate_mt_day": 20000,
+          "cargo_types": ["bulk", "fertilizer", "bauxite"],
+          "mechanized": true
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "avg_turnaround_days": 3.0,
+      "avg_waiting_days": 1.0,
+      "notes": "India's deepest port. Can handle fully laden Capesize. Operated by Adani Ports."
+    },
+    "vizag": {
+      "id": "vizag",
+      "name": "Visakhapatnam Port (Vizag)",
+      "country": "India",
+      "coast": "East",
+      "state": "Andhra Pradesh",
+      "lat": 17.6868,
+      "lon": 83.2960,
+      "channel_depth_m": 16.5,
+      "anchorage_depth_m": 18.0,
+      "tidal_range_m": 1.4,
+      "pilotage_required": true,
+      "berths": [
+        {
+          "name": "Inner Harbour - EQ-1",
+          "max_loa_m": 229,
+          "max_beam_m": 32,
+          "max_draft_m": 12.8,
+          "handling_rate_mt_day": 12000,
+          "cargo_types": ["coal", "general", "bulk"],
+          "mechanized": false
+        },
+        {
+          "name": "Inner Harbour - EQ-8",
+          "max_loa_m": 229,
+          "max_beam_m": 32,
+          "max_draft_m": 12.8,
+          "handling_rate_mt_day": 15000,
+          "cargo_types": ["coal", "iron_ore"],
+          "mechanized": true
+        },
+        {
+          "name": "Outer Harbour - OB-1",
+          "max_loa_m": 260,
+          "max_beam_m": 38,
+          "max_draft_m": 14.0,
+          "handling_rate_mt_day": 18000,
+          "cargo_types": ["coal", "iron_ore", "bulk"],
+          "mechanized": true
+        },
+        {
+          "name": "Outer Harbour - OB-2",
+          "max_loa_m": 260,
+          "max_beam_m": 38,
+          "max_draft_m": 14.0,
+          "handling_rate_mt_day": 18000,
+          "cargo_types": ["coal", "iron_ore", "fertilizer"],
+          "mechanized": true
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax"],
+      "avg_turnaround_days": 5.0,
+      "avg_waiting_days": 3.0,
+      "notes": "Major port but congested. Inner harbour restricted to smaller vessels. Outer harbour handles Panamax."
+    },
+    "gopalpur": {
+      "id": "gopalpur",
+      "name": "Gopalpur Port",
+      "country": "India",
+      "coast": "East",
+      "state": "Odisha",
+      "lat": 19.2587,
+      "lon": 84.9052,
+      "channel_depth_m": 14.0,
+      "anchorage_depth_m": 16.0,
+      "tidal_range_m": 1.8,
+      "pilotage_required": true,
+      "berths": [
+        {
+          "name": "All-Weather Berth",
+          "max_loa_m": 230,
+          "max_beam_m": 36,
+          "max_draft_m": 12.0,
+          "handling_rate_mt_day": 10000,
+          "cargo_types": ["coal", "bulk", "limestone", "alumina"],
+          "mechanized": false
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax"],
+      "avg_turnaround_days": 5.0,
+      "avg_waiting_days": 1.5,
+      "notes": "Smaller port with limited draft. Primarily serves nearby industries. Operated by JSW Infrastructure."
+    },
+    "haldia": {
+      "id": "haldia",
+      "name": "Haldia Dock Complex",
+      "country": "India",
+      "coast": "East",
+      "state": "West Bengal",
+      "lat": 22.0256,
+      "lon": 88.0972,
+      "channel_depth_m": 8.5,
+      "anchorage_depth_m": 10.0,
+      "tidal_range_m": 5.0,
+      "pilotage_required": true,
+      "berths": [
+        {
+          "name": "Oil Jetty South",
+          "max_loa_m": 225,
+          "max_beam_m": 32,
+          "max_draft_m": 9.14,
+          "handling_rate_mt_day": 8000,
+          "cargo_types": ["coal", "bulk", "general"],
+          "mechanized": false
+        },
+        {
+          "name": "Berth 2 (Impounded Dock)",
+          "max_loa_m": 230,
+          "max_beam_m": 32,
+          "max_draft_m": 9.5,
+          "handling_rate_mt_day": 8000,
+          "cargo_types": ["coal", "iron_ore", "bulk"],
+          "mechanized": false
+        },
+        {
+          "name": "Riverine Berth",
+          "max_loa_m": 190,
+          "max_beam_m": 28,
+          "max_draft_m": 7.5,
+          "handling_rate_mt_day": 5000,
+          "cargo_types": ["coal", "general", "containers"],
+          "mechanized": false
+        }
+      ],
+      "vessel_classes_accepted": ["handysize"],
+      "avg_turnaround_days": 6.0,
+      "avg_waiting_days": 4.0,
+      "notes": "Severe draft restriction (tidal). Located on Hooghly River. Only Handysize and smaller vessels. Long waiting times due to tidal lock entry."
+    },
+    "sagar_sandheads": {
+      "id": "sagar_sandheads",
+      "name": "Sagar Island / Sandheads Anchorage",
+      "country": "India",
+      "coast": "East",
+      "state": "West Bengal",
+      "lat": 21.6500,
+      "lon": 88.0500,
+      "channel_depth_m": 25.0,
+      "anchorage_depth_m": 25.0,
+      "tidal_range_m": 5.5,
+      "pilotage_required": true,
+      "berths": [
+        {
+          "name": "Lightering Anchorage (STS)",
+          "max_loa_m": 330,
+          "max_beam_m": 55,
+          "max_draft_m": 20.0,
+          "handling_rate_mt_day": 15000,
+          "cargo_types": ["coal", "iron_ore", "bulk"],
+          "mechanized": false
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "avg_turnaround_days": 8.0,
+      "avg_waiting_days": 2.5,
+      "notes": "Ship-to-ship (STS) lightering anchorage for Capesize. Cargo transferred to smaller vessels for Haldia/Kolkata. Weather dependent — monsoon shutdowns."
+    }
+  },
+  "loading_ports": {
+    "newcastle": {
+      "id": "newcastle",
+      "name": "Port of Newcastle",
+      "country": "Australia",
+      "region": "New South Wales",
+      "lat": -32.9283,
+      "lon": 151.7817,
+      "channel_depth_m": 17.0,
+      "berths": [
+        {
+          "name": "Kooragang Coal Terminal (KECT)",
+          "max_loa_m": 300,
+          "max_beam_m": 50,
+          "max_draft_m": 16.5,
+          "loading_rate_mt_day": 80000,
+          "cargo_types": ["thermal_coal", "coking_coal"]
+        },
+        {
+          "name": "Newcastle Coal Infrastructure Group (NCIG)",
+          "max_loa_m": 300,
+          "max_beam_m": 50,
+          "max_draft_m": 16.1,
+          "loading_rate_mt_day": 66000,
+          "cargo_types": ["thermal_coal", "coking_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "notes": "World's largest coal export port. Three terminals with combined capacity ~200 MTPA."
+    },
+    "gladstone": {
+      "id": "gladstone",
+      "name": "Port of Gladstone",
+      "country": "Australia",
+      "region": "Queensland",
+      "lat": -23.8489,
+      "lon": 151.2872,
+      "channel_depth_m": 17.5,
+      "berths": [
+        {
+          "name": "RG Tanna Coal Terminal",
+          "max_loa_m": 290,
+          "max_beam_m": 50,
+          "max_draft_m": 16.2,
+          "loading_rate_mt_day": 60000,
+          "cargo_types": ["thermal_coal", "coking_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "notes": "Major coal and alumina export port in Queensland."
+    },
+    "hay_point": {
+      "id": "hay_point",
+      "name": "Hay Point / Dalrymple Bay",
+      "country": "Australia",
+      "region": "Queensland",
+      "lat": -21.2833,
+      "lon": 149.2833,
+      "channel_depth_m": 19.0,
+      "berths": [
+        {
+          "name": "Dalrymple Bay Coal Terminal (DBCT)",
+          "max_loa_m": 310,
+          "max_beam_m": 52,
+          "max_draft_m": 18.4,
+          "loading_rate_mt_day": 72000,
+          "cargo_types": ["coking_coal", "thermal_coal"]
+        },
+        {
+          "name": "Hay Point Coal Terminal (HPCT)",
+          "max_loa_m": 300,
+          "max_beam_m": 50,
+          "max_draft_m": 18.0,
+          "loading_rate_mt_day": 55000,
+          "cargo_types": ["coking_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "notes": "Major coking coal export hub. Deep water port handles fully laden Capesize."
+    },
+    "hampton_roads": {
+      "id": "hampton_roads",
+      "name": "Hampton Roads (Norfolk)",
+      "country": "USA",
+      "region": "Virginia",
+      "lat": 36.9473,
+      "lon": -76.3133,
+      "channel_depth_m": 15.8,
+      "berths": [
+        {
+          "name": "Dominion Terminal Associates",
+          "max_loa_m": 305,
+          "max_beam_m": 50,
+          "max_draft_m": 15.5,
+          "loading_rate_mt_day": 50000,
+          "cargo_types": ["thermal_coal", "coking_coal", "petroleum_coke"]
+        },
+        {
+          "name": "Lamberts Point (Norfolk Southern)",
+          "max_loa_m": 290,
+          "max_beam_m": 46,
+          "max_draft_m": 14.3,
+          "loading_rate_mt_day": 48000,
+          "cargo_types": ["thermal_coal", "coking_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "notes": "Largest coal export port in USA. East Coast location adds transit distance to India."
+    },
+    "baltimore": {
+      "id": "baltimore",
+      "name": "Port of Baltimore (Curtis Bay)",
+      "country": "USA",
+      "region": "Maryland",
+      "lat": 39.2504,
+      "lon": -76.5803,
+      "channel_depth_m": 15.2,
+      "berths": [
+        {
+          "name": "Curtis Bay Coal Piers",
+          "max_loa_m": 270,
+          "max_beam_m": 44,
+          "max_draft_m": 14.5,
+          "loading_rate_mt_day": 35000,
+          "cargo_types": ["thermal_coal", "coking_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax"],
+      "notes": "Secondary US coal export port. Panamax max due to Chesapeake Bay channel constraints."
+    },
+    "nacala": {
+      "id": "nacala",
+      "name": "Port of Nacala",
+      "country": "Mozambique",
+      "region": "Nampula Province",
+      "lat": -14.5424,
+      "lon": 40.6850,
+      "channel_depth_m": 16.0,
+      "berths": [
+        {
+          "name": "Nacala Coal Terminal",
+          "max_loa_m": 280,
+          "max_beam_m": 45,
+          "max_draft_m": 15.5,
+          "loading_rate_mt_day": 30000,
+          "cargo_types": ["coking_coal", "thermal_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax"],
+      "notes": "Connected to Moatize coal fields via Nacala Logistics Corridor. Growing capacity."
+    },
+    "maputo": {
+      "id": "maputo",
+      "name": "Port of Maputo (Matola)",
+      "country": "Mozambique",
+      "region": "Maputo Province",
+      "lat": -25.9653,
+      "lon": 32.5892,
+      "channel_depth_m": 14.0,
+      "berths": [
+        {
+          "name": "Matola Coal Terminal",
+          "max_loa_m": 250,
+          "max_beam_m": 40,
+          "max_draft_m": 13.5,
+          "loading_rate_mt_day": 22000,
+          "cargo_types": ["thermal_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax"],
+      "notes": "Also handles South African coal exports. Draft limited compared to Nacala."
+    },
+    "samarinda": {
+      "id": "samarinda",
+      "name": "Port of Samarinda",
+      "country": "Indonesia",
+      "region": "East Kalimantan",
+      "lat": -0.5022,
+      "lon": 117.1536,
+      "channel_depth_m": 9.0,
+      "berths": [
+        {
+          "name": "River Loading Point (Floating Crane)",
+          "max_loa_m": 200,
+          "max_beam_m": 35,
+          "max_draft_m": 8.5,
+          "loading_rate_mt_day": 12000,
+          "cargo_types": ["thermal_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax"],
+      "notes": "River port with severe draft restrictions. Typically uses barge + floating crane loading at anchorage."
+    },
+    "balikpapan": {
+      "id": "balikpapan",
+      "name": "Port of Balikpapan",
+      "country": "Indonesia",
+      "region": "East Kalimantan",
+      "lat": -1.2654,
+      "lon": 116.8310,
+      "channel_depth_m": 14.0,
+      "berths": [
+        {
+          "name": "Coal Loading Anchorage",
+          "max_loa_m": 260,
+          "max_beam_m": 40,
+          "max_draft_m": 13.5,
+          "loading_rate_mt_day": 18000,
+          "cargo_types": ["thermal_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax"],
+      "notes": "Deeper than Samarinda. Handles Panamax at anchorage loading."
+    },
+    "vanino": {
+      "id": "vanino",
+      "name": "Port of Vanino",
+      "country": "Russia",
+      "region": "Khabarovsk Krai",
+      "lat": 49.0833,
+      "lon": 140.2500,
+      "channel_depth_m": 15.0,
+      "berths": [
+        {
+          "name": "Coal Terminal",
+          "max_loa_m": 260,
+          "max_beam_m": 40,
+          "max_draft_m": 14.5,
+          "loading_rate_mt_day": 30000,
+          "cargo_types": ["thermal_coal", "coking_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax"],
+      "notes": "Russian Far East coal export. Year-round operations despite cold climate."
+    },
+    "vostochny": {
+      "id": "vostochny",
+      "name": "Port of Vostochny",
+      "country": "Russia",
+      "region": "Primorsky Krai",
+      "lat": 42.7560,
+      "lon": 133.0560,
+      "channel_depth_m": 16.5,
+      "berths": [
+        {
+          "name": "Vostochny Port Coal Terminal",
+          "max_loa_m": 280,
+          "max_beam_m": 45,
+          "max_draft_m": 16.0,
+          "loading_rate_mt_day": 35000,
+          "cargo_types": ["thermal_coal", "coking_coal"]
+        }
+      ],
+      "vessel_classes_accepted": ["handysize", "supramax", "panamax", "capesize"],
+      "notes": "Russia's largest Pacific coast coal terminal. Handles Capesize with tidal window."
+    }
+  }
+}

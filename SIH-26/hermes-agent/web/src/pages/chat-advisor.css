@@ -1,0 +1,623 @@
+/* ================================================================
+   INDRA SAIL Light — AI Chat Advisor & Autonomous Forecaster
+   Matches ChatGPT-like experience wrapped in the SAIL Light theme
+   ================================================================ */
+
+.advisor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: calc(100vh - 60px);
+  background: #f1f5fb;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Advisor Top Header Bar ───────────────────────────────────── */
+.advisor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  z-index: 10;
+}
+
+.advisor-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.advisor-logo-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #1a56db 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(26, 86, 219, 0.25);
+  flex-shrink: 0;
+}
+
+.advisor-title-box h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.advisor-title-box p {
+  font-size: 0.76rem;
+  color: #64748b;
+  margin: 2px 0 0;
+}
+
+.advisor-header-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.advisor-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.advisor-badge.online {
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.advisor-badge.model {
+  background: #eff6ff;
+  color: #1a56db;
+  border: 1px solid #bfdbfe;
+}
+
+.advisor-badge.tool {
+  background: #faf5ff;
+  color: #7e22ce;
+  border: 1px solid #e9d5ff;
+}
+
+.advisor-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.advisor-btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.advisor-btn-action:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+/* ── Chat Messages Body ───────────────────────────────────────── */
+.advisor-chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 20px 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Empty State / Welcome Screen */
+.advisor-welcome-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px 20px 20px;
+  margin: auto 0;
+}
+
+.advisor-welcome-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #1a56db 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(26, 86, 219, 0.3);
+  margin-bottom: 16px;
+}
+
+.advisor-welcome-hero h1 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.advisor-welcome-hero p {
+  font-size: 0.92rem;
+  color: #475569;
+  max-width: 540px;
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.advisor-prompts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 720px;
+}
+
+.advisor-prompt-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.advisor-prompt-card:hover {
+  border-color: #1a56db;
+  box-shadow: 0 4px 12px rgba(26, 86, 219, 0.08);
+  transform: translateY(-1px);
+}
+
+.advisor-prompt-card-icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.advisor-prompt-card-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+/* ── Message Row ──────────────────────────────────────────────── */
+.advisor-msg-row {
+  display: flex;
+  gap: 14px;
+  width: 100%;
+}
+
+.advisor-msg-row.user {
+  justify-content: flex-end;
+}
+
+.advisor-msg-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+.advisor-msg-avatar.ai {
+  background: #1e3a5f;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(30, 58, 95, 0.3);
+}
+
+.advisor-msg-avatar.user {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.advisor-msg-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 82%;
+}
+
+.advisor-msg-row.user .advisor-msg-content {
+  align-items: flex-end;
+}
+
+/* User Message Bubble */
+.advisor-user-bubble {
+  background: #1e3a5f;
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 14px 14px 2px 14px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  box-shadow: 0 2px 6px rgba(30, 58, 95, 0.2);
+  word-break: break-word;
+}
+
+.advisor-user-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.advisor-attached-file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+/* Assistant Message Bubble */
+.advisor-ai-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px 14px 14px 2px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #1e293b;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Chain of Thought (CoT) Reasoning Box ──────────────────────── */
+.advisor-cot-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 3.5px solid #1a56db;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.advisor-cot-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f1f5f9;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #1e3a5f;
+}
+
+.advisor-cot-header:hover {
+  background: #e2e8f0;
+}
+
+.advisor-cot-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.advisor-cot-body {
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #334155;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  white-space: pre-wrap;
+  max-height: 240px;
+  overflow-y: auto;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* ── Tools Executed Pills ─────────────────────────────────────── */
+.advisor-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.advisor-tool-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #15803d;
+}
+
+/* ── Markdown Content Typography & Tables ─────────────────────── */
+.advisor-markdown h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 16px 0 8px;
+}
+
+.advisor-markdown h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin: 14px 0 6px;
+}
+
+.advisor-markdown p {
+  margin: 0 0 10px;
+}
+
+.advisor-markdown hr {
+  border: 0;
+  height: 1px;
+  background: #e2e8f0;
+  margin: 14px 0;
+}
+
+.advisor-markdown ul,
+.advisor-markdown ol {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+
+.advisor-markdown li {
+  margin-bottom: 4px;
+}
+
+.advisor-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 0.8rem;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.advisor-markdown th {
+  background: #f8fafc;
+  color: #0f172a;
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 12px;
+  border-bottom: 1.5px solid #cbd5e1;
+}
+
+.advisor-markdown td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.advisor-markdown tr:last-child td {
+  border-bottom: none;
+}
+
+.advisor-markdown tr:hover td {
+  background: #f8fafc;
+}
+
+/* ── Bottom Floating Input Bar (ChatGPT Style) ────────────────── */
+.advisor-input-dock {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px 20px;
+  background: linear-gradient(180deg, rgba(241, 245, 251, 0) 0%, rgba(241, 245, 251, 0.95) 30%, #f1f5fb 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 20;
+}
+
+.advisor-input-card {
+  width: 100%;
+  max-width: 860px;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.advisor-input-card:focus-within {
+  border-color: #1a56db;
+  box-shadow: 0 6px 24px rgba(26, 86, 219, 0.12);
+}
+
+/* Attached file preview row above input */
+.advisor-attachments-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.advisor-file-preview-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  color: #1e40af;
+  font-weight: 500;
+}
+
+.advisor-file-remove-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.advisor-file-remove-btn:hover {
+  color: #dc2626;
+}
+
+/* Textarea and send row */
+.advisor-input-main-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.advisor-textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: #0f172a;
+  background: transparent;
+  resize: none;
+  min-height: 26px;
+  max-height: 140px;
+  line-height: 1.45;
+  padding: 4px 0;
+}
+
+.advisor-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.advisor-input-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.advisor-tool-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.advisor-tool-btn:hover {
+  background: #f8fafc;
+  color: #1e3a5f;
+  border-color: #cbd5e1;
+}
+
+.advisor-tool-btn.active {
+  background: #eff6ff;
+  color: #1a56db;
+  border-color: #93c5fd;
+}
+
+.advisor-send-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: #1e3a5f;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.advisor-send-btn:hover:not(:disabled) {
+  background: #1a56db;
+  transform: scale(1.05);
+}
+
+.advisor-send-btn:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Dock bottom hint text */
+.advisor-dock-footer {
+  font-size: 0.7rem;
+  color: #64748b;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Spinner */
+.advisor-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,6 @@
+Ship_Name,IMO_Number,Current_Port,Destination_Port,ETA,Cargo_Type,Status,Fuel_Level_Percent,Delay_Risk
+Ever Given,9811000,Rotterdam,Felixstowe,2026-10-10,Containers,In Transit,75,Low
+Emma Maersk,9321483,Singapore,Shanghai,2026-10-06,Containers,Moored,40,High
+MSC Oscar,9703291,Ningbo,Los Angeles,2026-10-15,Containers,In Transit,82,Low
+Cosco Glory,9466245,Jebel Ali,Piraeus,2026-10-08,Containers,At Anchor,60,Medium
+HMM Algeciras,9863297,Busan,Yantian,2026-10-05,Containers,In Transit,90,Low

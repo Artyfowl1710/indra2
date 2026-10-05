@@ -68,7 +68,7 @@ _BUILTIN_SKINS: Dict[str, Dict[str, Any]] = {
             "banner_dim": "#FFFFFF", "banner_text": "#FFFFFF", "ui_accent": "#00E5FF",
             "ui_label": "#4FC3F7", "ui_ok": "#69FF47", "ui_error": "#FF5252", "ui_warn": "#FFD740",
             "prompt": "#FFD740", "input_rule": "#4FC3F7", "response_border": "#FFFFFF",
-            "status_bar_bg": "#FFFFFF00", "status_bar_text": "#000000",
+            "status_bar_bg": "#141414", "status_bar_text": "#CCCCCC",
             "status_bar_strong": "#FFFFFF", "status_bar_dim": "#CCCCCC",
             "status_bar_good": "#69FF47", "status_bar_warn": "#FFD740", "status_bar_bad": "#FF9100",
             "status_bar_critical": "#FF5252", "session_label": "#4FC3F7",

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./maritime-pages.css";
 import { usePageHeader } from "@/contexts/usePageHeader";
+import { DemoDataBadge, DataNoticeBanner } from "@/components/DemoDataBadge";
 import {
   Ship,
   Calendar,
@@ -12,55 +13,59 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-/* ── Multi-Voyage Plan Data ──────────────────────────────────── */
+/* ── Multi-Voyage Plan Data (Demo Fixture Schedule) ──────────── */
 const VOYAGES = [
   {
     id: "MV-001",
     origin: "Newcastle, AU",
-    dest: "Paradip",
+    dest: "Dhamra",
     vessel: "Capesize",
-    cargo: "Thermal Coal",
-    qty: "160,000 MT",
+    cargo: "Coking Coal",
+    qty: "165,000 MT",
     etl: "Oct 12",
     eta: "Nov 2",
     status: "loading",
-    rate: "16.80 $/t",
+    rate: "17.50 $/t",
+    draftNote: "18.0m Verified Basin",
   },
   {
     id: "MV-002",
-    origin: "Newcastle, AU",
+    origin: "Gladstone, AU",
     dest: "Gangavaram",
     vessel: "Capesize",
-    cargo: "Thermal Coal",
+    cargo: "Coking Coal",
     qty: "170,000 MT",
     etl: "Oct 28",
     eta: "Nov 18",
     status: "scheduled",
-    rate: "16.80 $/t",
+    rate: "17.80 $/t",
+    draftNote: "18.5m Deep Berth 1",
   },
   {
     id: "MV-003",
     origin: "Hay Point, AU",
     dest: "Vizag",
-    vessel: "Capesize",
+    vessel: "Panamax",
     cargo: "Coking Coal",
-    qty: "155,000 MT",
+    qty: "75,000 MT",
     etl: "Nov 15",
     eta: "Dec 5",
     status: "planned",
-    rate: "17.20 $/t",
+    rate: "21.20 $/t",
+    draftNote: "16.0m Outer Harbour",
   },
   {
     id: "MV-004",
     origin: "Newcastle, AU",
     dest: "Paradip",
-    vessel: "Capesize",
+    vessel: "Panamax",
     cargo: "Thermal Coal",
-    qty: "160,000 MT",
+    qty: "75,000 MT",
     etl: "Dec 1",
     eta: "Dec 21",
     status: "planned",
-    rate: "16.80 $/t",
+    rate: "20.40 $/t",
+    draftNote: "14.5m CQ Berth Limit",
   },
   {
     id: "MV-005",
@@ -72,7 +77,8 @@ const VOYAGES = [
     etl: "Dec 18",
     eta: "Jan 7",
     status: "planned",
-    rate: "17.20 $/t",
+    rate: "17.50 $/t",
+    draftNote: "18.0m Deepwater Basin",
   },
 ];
 
@@ -106,9 +112,19 @@ export default function MultiVoyagePlanPage() {
         <div>
           <span className="mi-overline">INDRA / CHARTER PLANNING / MULTI-VOYAGE PLAN</span>
           <h2>Multi-Voyage Contract Planner</h2>
-          <p>6-month voyage schedule with idle-time optimization and fleet positioning strategy.</p>
+          <p>6-month voyage schedule with idle-time optimization and fleet positioning strategy (Demo Schedule).</p>
+        </div>
+        <div className="mi-header-meta">
+          <DemoDataBadge type="demo" label="Demo Schedule" />
+          <DemoDataBadge type="calibrated" label="Spot Calibrated" />
         </div>
       </div>
+
+      {/* Notice Banner */}
+      <DataNoticeBanner
+        title="Demonstration Multi-Voyage Schedule"
+        description="Shipment itineraries, laycan windows, and vessel repositioning insights are demonstration planning models calibrated for SAIL's East Coast intake."
+      />
 
       {/* Contract Summary */}
       <div className="mv-summary-strip">
@@ -118,7 +134,7 @@ export default function MultiVoyagePlanPage() {
         </div>
         <div className="mv-summary-item">
           <span className="mv-summary-label">Total Voyages</span>
-          <span className="mv-summary-value">{VOYAGES.length}</span>
+          <span className="mv-summary-value">{VOYAGES.length} (Demo)</span>
         </div>
         <div className="mv-summary-item">
           <span className="mv-summary-label">Total Cargo</span>
@@ -129,7 +145,7 @@ export default function MultiVoyagePlanPage() {
           <span className="mv-summary-value">16.80–17.20 $/t</span>
         </div>
         <div className="mv-summary-item highlight">
-          <span className="mv-summary-label">Est. Savings vs Spot</span>
+          <span className="mv-summary-label">Est. Savings vs Spot (Demo)</span>
           <span className="mv-summary-value savings">₹4.8 Cr</span>
         </div>
       </div>
@@ -139,6 +155,7 @@ export default function MultiVoyagePlanPage() {
         <div className="mi-card-header">
           <Calendar size={16} className="mi-icon-cyan" />
           <span>Voyage Schedule</span>
+          <DemoDataBadge type="demo" label="Demo Fixtures" />
         </div>
         <div className="mv-timeline">
           {VOYAGES.map((v, i) => (
@@ -182,7 +199,8 @@ export default function MultiVoyagePlanPage() {
       <section className="mi-card">
         <div className="mi-card-header">
           <Clock size={16} className="mi-icon-cyan" />
-          <span>Idle Time & Positioning Insights</span>
+          <span>Idle Time & Positioning Insights (Demo Optimization)</span>
+          <DemoDataBadge type="simulated" label="Simulated Insights" />
         </div>
         <div className="mv-idle-list">
           {IDLE_INSIGHTS.map((ins, i) => (

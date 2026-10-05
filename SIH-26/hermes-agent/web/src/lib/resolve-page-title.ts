@@ -25,6 +25,14 @@ const BUILTIN_LITERAL: Record<string, string> = {
   "/webhooks": "Webhooks",
   "/pairing": "Pairing",
   "/system": "System",
+  "/overview": "Overview",
+  "/freight-forecasts": "Supply Forecast",
+  "/vessel-port-fit": "Vessel & Port Fit",
+  "/charter-planning/market-entry": "Route Optimization",
+  "/maritime-intelligence": "Market Intelligence",
+  "/port-congestion": "Port Congestion & Receivability",
+  "/charter-planning/scenarios": "Contract Scenarios",
+  "/charter-planning/multi-voyage": "Multi-Voyage Plan",
 };
 
 export function resolvePageTitle(

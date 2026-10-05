@@ -216,10 +216,9 @@ const BUILTIN_NAV_REST: NavItem[] = [
   { path: "/vessel-port-fit", label: "Vessel & Port Fit", icon: Anchor },
   { path: "/charter-planning/market-entry", label: "Route Optimization", icon: RouteIcon },
   { path: "/maritime-intelligence", label: "Market Intelligence", icon: BarChart3 },
-  { path: "/port-congestion", label: "Scenario Planner", icon: Layers },
+  { path: "/port-congestion", label: "Port Congestion & Receivability", icon: Ship },
   { path: "/charter-planning/scenarios", label: "Contract Scenarios", icon: FileText },
-  { path: "/charter-planning/multi-voyage", label: "Port Receivability", icon: Ship },
-  { path: "/charter-planning/multi-voyage", label: "Multi-Workplan", icon: Navigation },
+  { path: "/charter-planning/multi-voyage", label: "Multi-Voyage Plan", icon: Navigation },
   { path: "/chat", label: "Command Center (CLI)", icon: Terminal },
   { path: "/logs", labelKey: "logs", label: BRAND_LABELS.auditTrail, icon: Clock },
 ];
@@ -1200,8 +1199,8 @@ function SystemActionButton({
   );
 }
 
-// @ts-ignore – temporarily unused while language/theme switchers are commented out
-function SidebarIconWithTooltip({
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function SidebarIconWithTooltip({
   children,
   collapsed,
   label,

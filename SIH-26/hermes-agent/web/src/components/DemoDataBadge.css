@@ -1,0 +1,122 @@
+/* ═══════════════════════════════════════════════════════════════
+   DemoDataBadge & DataNoticeBanner Styles
+   ═══════════════════════════════════════════════════════════════ */
+
+.data-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 1.3;
+}
+
+.data-badge-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.data-badge-demo {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.data-badge-calibrated {
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+.data-badge-validated {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.data-badge-simulated {
+  background: #f5f3ff;
+  color: #6b21a8;
+  border: 1px solid #ddd6fe;
+}
+
+.data-badge-live {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #6ee7b7;
+}
+
+.data-badge-dot.live {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  display: inline-block;
+  animation: data-badge-pulse 2s ease infinite;
+}
+
+@keyframes data-badge-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ─── Data Notice Banner ─────────────────────────────────────── */
+.data-notice-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #fed7aa;
+  border-left: 4px solid #f97316;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  margin-bottom: 0.5rem;
+}
+
+.data-notice-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.data-notice-icon-box {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #fff7ed;
+  color: #ea580c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.data-notice-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.data-notice-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #0f172a;
+}
+
+.data-notice-desc {
+  margin: 0;
+  font-size: 0.76rem;
+  color: #64748b;
+  line-height: 1.45;
+}

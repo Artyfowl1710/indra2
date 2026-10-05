@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import "./maritime-pages.css";
 import { usePageHeader } from "@/contexts/usePageHeader";
+import { DemoDataBadge, DataNoticeBanner } from "@/components/DemoDataBadge";
 import {
-  TrendingUp,
-  TrendingDown,
   Activity,
   BarChart3,
   Globe,
@@ -13,24 +12,24 @@ import {
   Minus,
 } from "lucide-react";
 
-/* ── Synthetic Market Data ───────────────────────────────────── */
+/* ── Calibrated Benchmark Market Data (Demo Dataset) ─────────────────── */
 const BDI_HISTORY = [1820, 1795, 1810, 1845, 1832, 1878, 1912, 1895, 1920, 1935, 1958, 1942, 1970];
 const RATE_ROUTES = [
-  { origin: "Australia", dest: "Paradip", vessel: "Capesize", rate: 18.45, change: +2.3, unit: "$/t" },
-  { origin: "Australia", dest: "Vizag", vessel: "Panamax", rate: 22.10, change: -0.8, unit: "$/t" },
-  { origin: "USA (East)", dest: "Haldia", vessel: "Panamax", rate: 28.75, change: +1.5, unit: "$/t" },
-  { origin: "Mozambique", dest: "Gangavaram", vessel: "Supramax", rate: 19.80, change: +3.1, unit: "$/t" },
-  { origin: "Indonesia", dest: "Paradip", vessel: "Supramax", rate: 14.20, change: -1.2, unit: "$/t" },
-  { origin: "Russia", dest: "Vizag", vessel: "Panamax", rate: 25.50, change: +0.5, unit: "$/t" },
-  { origin: "Indonesia", dest: "Dhamra", vessel: "Handysize", rate: 16.90, change: +2.8, unit: "$/t" },
-  { origin: "Australia", dest: "Gangavaram", vessel: "Capesize", rate: 17.20, change: +1.9, unit: "$/t" },
+  { origin: "Australia", dest: "Paradip", vessel: "Capesize", rate: 18.45, change: +2.3, unit: "$/t", benchmark: "Baltic C5 Route" },
+  { origin: "Australia", dest: "Vizag", vessel: "Panamax", rate: 22.10, change: -0.8, unit: "$/t", benchmark: "Baltic P1A Route" },
+  { origin: "USA (East)", dest: "Haldia", vessel: "Panamax", rate: 28.75, change: +1.5, unit: "$/t", benchmark: "Hampton Roads - Haldia" },
+  { origin: "Mozambique", dest: "Gangavaram", vessel: "Supramax", rate: 19.80, change: +3.1, unit: "$/t", benchmark: "Maputo - Gangavaram" },
+  { origin: "Indonesia", dest: "Paradip", vessel: "Supramax", rate: 14.20, change: -1.2, unit: "$/t", benchmark: "Muara Pantai - Paradip" },
+  { origin: "Russia", dest: "Vizag", vessel: "Panamax", rate: 25.50, change: +0.5, unit: "$/t", benchmark: "Taman - Vizag" },
+  { origin: "Indonesia", dest: "Dhamra", vessel: "Handysize", rate: 16.90, change: +2.8, unit: "$/t", benchmark: "South Kalimantan - Dhamra" },
+  { origin: "Australia", dest: "Gangavaram", vessel: "Capesize", rate: 17.20, change: +1.9, unit: "$/t", benchmark: "Hay Point - Gangavaram" },
 ];
 
 const COMMODITIES = [
-  { name: "Thermal Coal (Newcastle)", price: 142.50, change: +1.8, unit: "$/t" },
-  { name: "Coking Coal (PLV)", price: 218.30, change: -2.1, unit: "$/t" },
-  { name: "Bunker Fuel (VLSFO)", price: 612.00, change: +0.6, unit: "$/t" },
-  { name: "Iron Ore (62% Fe)", price: 108.40, change: +3.2, unit: "$/t" },
+  { name: "Thermal Coal (Newcastle)", price: 142.50, change: +1.8, unit: "$/t", source: "Platts Newcastle 6000 kcal" },
+  { name: "Coking Coal (PLV)", price: 218.30, change: -2.1, unit: "$/t", source: "Platts Premium Low Vol" },
+  { name: "Bunker Fuel (VLSFO)", price: 612.00, change: +0.6, unit: "$/t", source: "Singapore 0.5% Marine Fuel" },
+  { name: "Iron Ore (62% Fe)", price: 108.40, change: +3.2, unit: "$/t", source: "IODEX 62% Fe CFR China" },
 ];
 
 const MARKET_NEWS = [
@@ -82,13 +81,19 @@ export default function MaritimeIntelligencePage() {
         <div>
           <span className="mi-overline">INDRA / MARITIME INTELLIGENCE</span>
           <h2>Market Overview</h2>
-          <p>Real-time freight market data across trade lanes relevant to SAIL's East Coast operations.</p>
+          <p>Freight market benchmarks and commodity prices across key trade lanes for SAIL's East Coast operations.</p>
         </div>
         <div className="mi-header-meta">
-          <span className="mi-live-dot" /> Live Market Data
-          <span className="mi-timestamp">Last updated: 5 min ago</span>
+          <DemoDataBadge type="calibrated" label="Demo Dataset (Calibrated)" />
+          <span className="mi-timestamp">Source: Baltic & Platts Benchmarks</span>
         </div>
       </div>
+
+      {/* Notice Banner */}
+      <DataNoticeBanner
+        title="Calibrated Market Benchmark Dataset"
+        description="Figures shown in this dashboard are calibrated historical benchmarks based on the Baltic Dry Index (BDI), Platts coking coal indices, and Indian port tariffs. Live commercial API feeds require an active Baltic/S&P enterprise key."
+      />
 
       {/* BDI + Commodities Row */}
       <div className="mi-top-row">
@@ -96,24 +101,26 @@ export default function MaritimeIntelligencePage() {
           <div className="mi-card-header">
             <Activity size={16} className="mi-icon-cyan" />
             <span>Baltic Dry Index (BDI)</span>
+            <DemoDataBadge type="calibrated" label="Benchmark" />
           </div>
           <div className="mi-bdi-value">
             <span className="mi-big-number">{BDI_HISTORY[BDI_HISTORY.length - 1].toLocaleString()}</span>
             <ChangeIndicator value={1.4} />
           </div>
           <MiniSparkline data={BDI_HISTORY} />
-          <span className="mi-card-note">13-week trend</span>
+          <span className="mi-card-note">13-week trend · Calibrated Baltic series</span>
         </section>
 
         <section className="mi-card mi-commodities-card">
           <div className="mi-card-header">
             <BarChart3 size={16} className="mi-icon-cyan" />
             <span>Commodity Prices</span>
+            <DemoDataBadge type="demo" label="Demo Reference" />
           </div>
           <div className="mi-commodity-grid">
             {COMMODITIES.map(c => (
               <div key={c.name} className="mi-commodity-row">
-                <span className="mi-commodity-name">{c.name}</span>
+                <span className="mi-commodity-name" title={c.source}>{c.name}</span>
                 <span className="mi-commodity-price">{c.price.toFixed(2)} {c.unit}</span>
                 <ChangeIndicator value={c.change} />
               </div>
@@ -127,6 +134,7 @@ export default function MaritimeIntelligencePage() {
         <div className="mi-card-header">
           <Globe size={16} className="mi-icon-cyan" />
           <span>Route-Specific Freight Rates</span>
+          <DemoDataBadge type="calibrated" label="Calibrated Model" />
           <div className="mi-vessel-filter">
             {["All", "Capesize", "Panamax", "Supramax", "Handysize"].map(v => (
               <button
@@ -148,7 +156,7 @@ export default function MaritimeIntelligencePage() {
                 <th>Vessel Class</th>
                 <th>Current Rate</th>
                 <th>Change (7d)</th>
-                <th>Trend</th>
+                <th>Benchmark Basis</th>
               </tr>
             </thead>
             <tbody>
@@ -159,11 +167,14 @@ export default function MaritimeIntelligencePage() {
                   <td><span className={`mi-vessel-badge ${r.vessel.toLowerCase()}`}>{r.vessel}</span></td>
                   <td className="mi-rate">{r.rate.toFixed(2)} {r.unit}</td>
                   <td><ChangeIndicator value={r.change} /></td>
-                  <td><MiniSparkline data={BDI_HISTORY.map((v, j) => v + (Math.random() - 0.5) * 100 * (j + 1) / 13)} color={r.change >= 0 ? "#10b981" : "#ef4444"} /></td>
+                  <td style={{ color: "#64748b", fontSize: "0.75rem" }}>{r.benchmark} (Demo)</td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+        <div style={{ marginTop: "0.8rem", fontSize: "0.7rem", color: "#94a3b8" }}>
+          * Rates ($/t) are calibrated demonstration figures benchmarked against Baltic Capesize/Panamax time-charter equivalents.
         </div>
       </section>
 
@@ -172,7 +183,8 @@ export default function MaritimeIntelligencePage() {
         <div className="mi-card-header">
           <Newspaper size={16} className="mi-icon-cyan" />
           <span>Market Signals (AI-Extracted)</span>
-          <span className="mi-badge">LLM-powered</span>
+          <DemoDataBadge type="simulated" label="Simulated Signals" />
+          <span className="mi-badge">LLM-parsed demo feed</span>
         </div>
         <div className="mi-news-list">
           {MARKET_NEWS.map((n, i) => (
@@ -182,7 +194,7 @@ export default function MaritimeIntelligencePage() {
                 <p>{n.headline}</p>
                 <div className="mi-news-meta">
                   <span className="mi-news-lane">{n.lane}</span>
-                  <span>{n.time}</span>
+                  <span>{n.time} · Simulated feed</span>
                 </div>
               </div>
             </article>

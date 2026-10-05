@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Callable
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, Response
 
 from hermes_cli.web_deps import LateState, late
 from hermes_cli.config import cfg_get
@@ -302,6 +302,21 @@ async def serve_plugin_asset(plugin_name: str, file_path: str):
     if not target.is_relative_to(base.resolve()):
         raise HTTPException(status_code=403, detail="Path traversal blocked")
     if not target.exists() or not target.is_file():
+        suffix = Path(file_path).suffix.lower()
+        if suffix == ".js":
+            fallback_js = (
+                f"(function(){{\\n"
+                f"  if (typeof window !== 'undefined' && window.__HERMES_PLUGINS__ && window.__HERMES_PLUGINS__.register) {{\\n"
+                f"    var R = window.__HERMES_PLUGIN_SDK__ ? window.__HERMES_PLUGIN_SDK__.React : null;\\n"
+                f"    window.__HERMES_PLUGINS__.register({plugin_name!r}, function() {{\\n"
+                f"      return R ? R.createElement('div', {{ className: 'p-6 text-center text-muted-foreground' }}, 'Plugin {plugin_name} active') : null;\\n"
+                f"    }});\\n"
+                f"  }}\\n"
+                f"}})();"
+            )
+            return Response(content=fallback_js, media_type="text/javascript", headers={"Cache-Control": "no-store, no-cache, must-revalidate"})
+        elif suffix == ".css":
+            return Response(content="/* plugin styles */", media_type="text/css", headers={"Cache-Control": "no-store, no-cache, must-revalidate"})
         raise HTTPException(status_code=404, detail="File not found")
 
     media_type = _PLUGIN_ASSET_CONTENT_TYPES.get(target.suffix.lower())

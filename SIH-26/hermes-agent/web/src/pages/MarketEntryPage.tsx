@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./maritime-pages.css";
 import { usePageHeader } from "@/contexts/usePageHeader";
+import { DemoDataBadge, DataNoticeBanner } from "@/components/DemoDataBadge";
 import {
   Calendar,
   TrendingDown,
@@ -10,15 +11,15 @@ import {
   Target,
 } from "lucide-react";
 
-/* ── Entry Windows Data ──────────────────────────────────────── */
+/* ── Entry Windows Data (Demo Strategy Model) ────────────────── */
 const WINDOWS = [
   {
     period: "Oct 7–14, 2026",
-    route: "Australia → Paradip",
+    route: "Australia → Dhamra",
     vessel: "Capesize",
     signal: "strong-buy",
     rateForecast: "16.80 $/t",
-    reason: "Seasonal demand trough + forecast P50 at 3-month low. P90 still below current spot.",
+    reason: "Seasonal demand trough + forecast P50 at 3-month low. P90 still below current spot. (18.0m Deep Draft Berth).",
     savings: "~₹0.8 Cr vs current spot",
     confidence: 82,
   },
@@ -34,11 +35,11 @@ const WINDOWS = [
   },
   {
     period: "Nov 1–10, 2026",
-    route: "USA (East) → Haldia",
+    route: "USA (East) → Paradip",
     vessel: "Panamax",
     signal: "wait",
     rateForecast: "27.20 $/t",
-    reason: "Panama Canal delays creating temporary premium. Expected to normalize by mid-November.",
+    reason: "Panama Canal delays creating temporary premium. Expected to normalize by mid-November. (14.5m Panamax Draft).",
     savings: "Wait for ~₹0.6 Cr saving",
     confidence: 65,
   },
@@ -76,15 +77,26 @@ export default function MarketEntryPage() {
         <div>
           <span className="mi-overline">INDRA / CHARTER PLANNING / MARKET ENTRY</span>
           <h2>Market Entry Timing</h2>
-          <p>Forecast-driven windows to secure charters at optimal rates. Laddered commitment strategies.</p>
+          <p>Forecast-driven windows to secure charters at optimal rates. Laddered commitment strategies (Demo Model).</p>
+        </div>
+        <div className="mi-header-meta">
+          <DemoDataBadge type="simulated" label="Simulated Windows (Demo)" />
+          <DemoDataBadge type="calibrated" label="Model Calibrated" />
         </div>
       </div>
+
+      {/* Notice Banner */}
+      <DataNoticeBanner
+        title="Procurement Entry Simulation (Demo Dataset)"
+        description="Recommended entry windows and tranche commitment laddering are simulated optimization scenarios based on econometric rate forecasts for demonstration purposes."
+      />
 
       {/* Entry Windows */}
       <section className="mi-card">
         <div className="mi-card-header">
           <Calendar size={16} className="mi-icon-cyan" />
           <span>Recommended Entry Windows (Next 60 Days)</span>
+          <DemoDataBadge type="simulated" label="Demo Scenarios" />
         </div>
         <div className="me-windows">
           {WINDOWS.map((w, i) => (
@@ -103,11 +115,11 @@ export default function MarketEntryPage() {
                 <p className="me-reason">{w.reason}</p>
                 <div className="me-window-metrics">
                   <div className="me-metric">
-                    <span className="me-metric-label">Forecast Rate</span>
+                    <span className="me-metric-label">Forecast Rate (Sim)</span>
                     <span className="me-metric-value">{w.rateForecast}</span>
                   </div>
                   <div className="me-metric">
-                    <span className="me-metric-label">Est. Savings</span>
+                    <span className="me-metric-label">Est. Savings (Demo)</span>
                     <span className="me-metric-value savings">{w.savings}</span>
                   </div>
                   <div className="me-metric">
@@ -129,6 +141,7 @@ export default function MarketEntryPage() {
         <div className="mi-card-header">
           <ArrowRight size={16} className="mi-icon-cyan" />
           <span>Laddered Commitment Strategy (Australia → Paradip · Capesize)</span>
+          <DemoDataBadge type="demo" label="Demo Strategy" />
         </div>
         <p className="me-strategy-desc">
           Instead of a single lump commitment, split the cargo volume across tranches timed to the forecast curve.

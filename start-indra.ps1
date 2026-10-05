@@ -75,8 +75,8 @@ try {
 } catch {}
 
 if (!$backendReady) {
-    Write-Host "Launching Hermes Backend (port 9119)..." -ForegroundColor Cyan
-    Start-Process -FilePath "powershell.exe" -ArgumentList "-WindowStyle Hidden -Command `"Set-Location '$agentDir'; uv run hermes dashboard --port 9119 --host 127.0.0.1 --no-open --skip-build`"" -WindowStyle Hidden
+    $pythonCmd = if (Test-Path "$agentDir\.venv\Scripts\python.exe") { ".\.venv\Scripts\python.exe -m hermes_cli.main dashboard --port 9119 --host 127.0.0.1 --no-open --skip-build" } else { "uv run hermes dashboard --port 9119 --host 127.0.0.1 --no-open --skip-build" }
+    Start-Process -FilePath "powershell.exe" -ArgumentList "-WindowStyle Hidden -Command `"Set-Location '$agentDir'; $pythonCmd`"" -WindowStyle Hidden
     
     # Wait up to 10 seconds for backend port 9119 to respond
     for ($i = 0; $i -lt 10; $i++) {

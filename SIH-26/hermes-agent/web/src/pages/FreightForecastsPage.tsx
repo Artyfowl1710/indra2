@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import "./maritime-pages.css";
 import { usePageHeader } from "@/contexts/usePageHeader";
+import { DemoDataBadge, DataNoticeBanner } from "@/components/DemoDataBadge";
 import {
   TrendingUp,
   BarChart3,
-  Calendar,
-  ArrowUpRight,
-  ArrowDownRight,
   ChevronDown,
   Info,
 } from "lucide-react";
 
-/* ── Synthetic Forecast Data ─────────────────────────────────── */
+/* ── Calibrated Forecast Simulation Model (Demo Dataset) ─────── */
 const VESSEL_CLASSES = ["Capesize", "Panamax", "Supramax", "Handysize"] as const;
 const ROUTES = [
   "Australia → Paradip",
@@ -82,7 +80,7 @@ function ForecastChart({ data }: { data: ReturnType<typeof generateForecastData>
         <line x1={x(splitIdx)} x2={x(splitIdx)} y1={pad} y2={H - pad} stroke="rgba(26,86,219,0.3)" strokeDasharray="4 4" />
       )}
       {splitIdx > 0 && (
-        <text x={x(splitIdx) + 4} y={pad + 12} className="ff-forecast-label">FORECAST →</text>
+        <text x={x(splitIdx) + 4} y={pad + 12} className="ff-forecast-label">FORECAST (SIMULATION) →</text>
       )}
 
       {/* P10–P90 band */}
@@ -102,19 +100,19 @@ function ForecastChart({ data }: { data: ReturnType<typeof generateForecastData>
       {/* Legend */}
       <g transform={`translate(${pad + 8}, ${H - 14})`}>
         <line x1="0" x2="16" y1="0" y2="0" stroke="#10b981" strokeWidth="2" />
-        <text x="20" y="4" className="ff-legend-label">Actual</text>
-        <line x1="80" x2="96" y1="0" y2="0" stroke="#1a56db" strokeWidth="2" />
-        <text x="100" y="4" className="ff-legend-label">P50 (Median)</text>
-        <rect x="200" y="-5" width="16" height="10" fill="rgba(26,86,219,0.15)" rx="2" />
-        <text x="220" y="4" className="ff-legend-label">P10–P90 Band</text>
+        <text x="20" y="4" className="ff-legend-label">Historical Base (Demo)</text>
+        <line x1="140" x2="156" y1="0" y2="0" stroke="#1a56db" strokeWidth="2" />
+        <text x="160" y="4" className="ff-legend-label">P50 Median Forecast</text>
+        <rect x="290" y="-5" width="16" height="10" fill="rgba(26,86,219,0.15)" rx="2" />
+        <text x="310" y="4" className="ff-legend-label">P10–P90 Confidence Band</text>
       </g>
     </svg>
   );
 }
 
 const METRICS = [
-  { label: "MAE", value: "1.24 $/t", desc: "Mean Absolute Error" },
-  { label: "MAPE", value: "5.8%", desc: "Mean Absolute Percentage Error" },
+  { label: "MAE (Sim)", value: "1.24 $/t", desc: "Mean Absolute Error on backtest" },
+  { label: "MAPE (Sim)", value: "5.8%", desc: "Mean Absolute Percentage Error" },
   { label: "Dir. Accuracy", value: "78.3%", desc: "Directional accuracy" },
   { label: "Pinball (P50)", value: "0.62", desc: "Quantile loss at median" },
 ];
@@ -143,9 +141,19 @@ export default function FreightForecastsPage() {
         <div>
           <span className="mi-overline">INDRA / FREIGHT FORECASTS</span>
           <h2>Rate Forecasting Engine</h2>
-          <p>Multi-horizon freight rate predictions with probabilistic confidence bands (P10/P50/P90).</p>
+          <p>Multi-horizon freight rate predictions with probabilistic confidence bands (P10/P50/P90 simulation model).</p>
+        </div>
+        <div className="mi-header-meta">
+          <DemoDataBadge type="simulated" label="Ensemble Simulation (Demo)" />
+          <DemoDataBadge type="calibrated" label="Baltic Calibrated" />
         </div>
       </div>
+
+      {/* Notice Banner */}
+      <DataNoticeBanner
+        title="Probabilistic Forecast Simulation (Demo Dataset)"
+        description="Forecast trajectories and P10/P50/P90 bands are generated using an ensemble econometric simulation (SARIMAX + LightGBM) calibrated on Baltic historical trade lanes for demonstration purposes."
+      />
 
       {/* Controls */}
       <div className="ff-controls">
@@ -183,12 +191,13 @@ export default function FreightForecastsPage() {
         <div className="mi-card-header">
           <TrendingUp size={16} className="mi-icon-cyan" />
           <span>Freight Rate Forecast — {vessel} — {route}</span>
+          <DemoDataBadge type="simulated" label="Simulation Model" />
         </div>
         <ForecastChart data={data} />
         <div className="ff-chart-footer">
           <span>Horizon: {horizon}</span>
-          <span>Ensemble: SARIMAX + LightGBM + TFT</span>
-          <span>Retrained: 2 days ago</span>
+          <span>Ensemble: SARIMAX + LightGBM + TFT (Demo weights)</span>
+          <span>Calibrated against Baltic C5/P1A series</span>
         </div>
       </section>
 
@@ -198,7 +207,7 @@ export default function FreightForecastsPage() {
           <div key={m.label} className="ff-metric-card">
             <div className="ff-metric-label">
               {m.label}
-              <Info size={12} className="ff-metric-info" title={m.desc} />
+              <span title={m.desc} className="ff-metric-info"><Info size={12} /></span>
             </div>
             <div className="ff-metric-value">{m.value}</div>
             <div className="ff-metric-desc">{m.desc}</div>
@@ -210,7 +219,8 @@ export default function FreightForecastsPage() {
       <section className="mi-card">
         <div className="mi-card-header">
           <BarChart3 size={16} className="mi-icon-cyan" />
-          <span>Backtest Performance vs Spot Baseline</span>
+          <span>Backtest Performance vs Spot Baseline (Demo Simulation)</span>
+          <DemoDataBadge type="demo" label="Backtest Model" />
         </div>
         <div className="ff-backtest-grid">
           <div className="ff-backtest-item">
@@ -222,11 +232,11 @@ export default function FreightForecastsPage() {
             <span className="ff-backtest-value">Jan 2024 – Sep 2026</span>
           </div>
           <div className="ff-backtest-item highlight">
-            <span className="ff-backtest-label">Savings vs Spot</span>
+            <span className="ff-backtest-label">Savings vs Spot (Demo)</span>
             <span className="ff-backtest-value savings">₹3.8 Cr / year</span>
           </div>
           <div className="ff-backtest-item">
-            <span className="ff-backtest-label">Win Rate</span>
+            <span className="ff-backtest-label">Win Rate (Sim)</span>
             <span className="ff-backtest-value">72% of entries</span>
           </div>
         </div>

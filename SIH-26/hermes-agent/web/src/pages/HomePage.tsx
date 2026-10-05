@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router";
 import {
-  ArrowRight,
   Anchor,
   BarChart2,
   Ship,
@@ -12,12 +11,14 @@ import {
 } from "lucide-react";
 import { BRAND } from "@/config/brand";
 import { usePageHeader } from "@/contexts/usePageHeader";
+import { DemoDataBadge, DataNoticeBanner } from "@/components/DemoDataBadge";
+import { SailHeroBanner } from "@/components/SailHeroBanner";
 import "./home-page.css";
 
-/* ── KPI Cards ────────────────────────────────────────────────── */
+/* ── KPI Cards (Calibrated Demonstration Series) ────────────────── */
 const KPIS = [
   {
-    label: "Active Vessels",
+    label: "Active Vessels (Demo)",
     value: "12",
     delta: "+2 this week",
     deltaPositive: true,
@@ -26,7 +27,7 @@ const KPIS = [
     bg: "#eff6ff",
   },
   {
-    label: "Forecast Accuracy",
+    label: "Forecast Accuracy (Backtest)",
     value: "89.2%",
     delta: "+5.1% vs last month",
     deltaPositive: true,
@@ -35,7 +36,7 @@ const KPIS = [
     bg: "#f0fdf4",
   },
   {
-    label: "Cost Savings",
+    label: "Cost Savings (Model YTD)",
     value: "₹4.2 Cr",
     delta: "YTD vs spot baseline",
     deltaPositive: true,
@@ -44,7 +45,7 @@ const KPIS = [
     bg: "#fffbeb",
   },
   {
-    label: "Active Alerts",
+    label: "Active Alerts (Sim)",
     value: "3",
     delta: "+ 2 demurrage risks",
     deltaPositive: false,
@@ -58,8 +59,8 @@ const KPIS = [
 
 /* ── Recent Updates ──────────────────────────────────────────── */
 const RECENT_UPDATES = [
-  { title: "New Capesize charter opportunity", time: "2 hours ago", icon: "🚢" },
-  { title: "Dhamra port draft update", time: "5 hours ago", icon: "⚓" },
+  { title: "New Capesize charter opportunity (Demo)", time: "2 hours ago", icon: "🚢" },
+  { title: "Dhamra port draft update (Verified 18.0m)", time: "5 hours ago", icon: "⚓" },
 ] as const;
 
 export default function HomePage() {
@@ -77,61 +78,18 @@ export default function HomePage() {
   return (
     <main className="sail-home" aria-label={`${BRAND.name} overview`}>
 
-      {/* ─── Hero Banner Asset with Working Buttons & Port Hotspots ───────── */}
+      {/* ─── Hero Banner: Crisp Native Component with 100% Vector Typography ── */}
       <section className="sail-hero-banner-section" aria-label="SAIL Raw Material Continuity">
-        <div className="sail-hero-banner-frame">
-          <img
-            src="/sail-hero-banner.png"
-            alt="SAIL Raw-Material Continuity: Secure Supply. Stronger Steel. Data-driven chartering and logistics intelligence for SAIL's East Coast operations."
-            className="sail-hero-banner-img"
-          />
-
-          {/* Interactive Working Action Buttons */}
-          <div className="sail-hero-actions-overlay">
-            <Link
-              to="/freight-forecasts"
-              className="sail-hero-overlay-btn sail-hero-overlay-primary"
-              aria-label="Explore Dashboard"
-              title="Explore Freight Forecasts Dashboard"
-            >
-              <span className="sail-btn-text">Explore Dashboard</span>
-              <ArrowRight size={14} className="sail-btn-icon" />
-            </Link>
-
-            <Link
-              to="/charter-planning/multi-voyage"
-              className="sail-hero-overlay-btn sail-hero-overlay-secondary"
-              aria-label="Run a Scenario"
-              title="Run a Charter Scenario Simulation"
-            >
-              <BarChart2 size={14} className="sail-btn-icon" />
-              <span className="sail-btn-text">Run a Scenario</span>
-            </Link>
-          </div>
-
-          {/* Interactive Port Hotspots with Tooltips */}
-          <div className="sail-hero-ports-overlay">
-            {[
-              { name: "Haldia",     draft: "9.0 m",  x: 55.9, y: 17.9 },
-              { name: "Dhamra",     draft: "18.0 m", x: 56.1, y: 33.5 },
-              { name: "Paradip",    draft: "14.5 m", x: 54.1, y: 50.8 },
-              { name: "Gopalpur",   draft: "14.0 m", x: 51.5, y: 71.0 },
-              { name: "Vizag",      draft: "16.0 m", x: 48.2, y: 86.0 },
-              { name: "Gangavaram", draft: "18.0 m", x: 55.1, y: 93.0 },
-            ].map((p) => (
-              <Link
-                key={p.name}
-                to={`/port-congestion?port=${encodeURIComponent(p.name)}`}
-                className="sail-hero-port-hotspot"
-                style={{ left: `${p.x}%`, top: `${p.y}%` }}
-                title={`${p.name} Port • Draft ${p.draft} • View Congestion & Berth Analytics`}
-              >
-                <span className="sail-hero-port-pulse" />
-              </Link>
-            ))}
-          </div>
-        </div>
+        <SailHeroBanner />
       </section>
+
+      {/* ─── Data Provenance Notice ────────────────────────────── */}
+      <div style={{ padding: "0 24px" }}>
+        <DataNoticeBanner
+          title="SAIL East Coast Demonstration Telemetry & Validated Port Parameters"
+          description="Port channel draft limits and berthing parameters are verified against official Indian Major Port Handbooks. Vessel queues, active alerts, and rate sparklines are calibrated demonstration values."
+        />
+      </div>
 
       {/* ─── KPI Strip ──────────────────────────────────────── */}
       <section className="sail-kpi-strip" aria-label="Key performance indicators">
@@ -160,6 +118,7 @@ export default function HomePage() {
             <div className="sail-chart-title">
               <BarChart2 size={16} className="sail-chart-icon" />
               Freight Rate Trends
+              <DemoDataBadge type="calibrated" label="Demo Series" />
             </div>
             <div className="sail-chart-controls">
               <span className="sail-legend-dot capesize" /> Capesize
@@ -211,6 +170,7 @@ export default function HomePage() {
             <div className="sail-chart-title">
               <Anchor size={16} className="sail-chart-icon" />
               Port Throughput &amp; Receivability
+              <DemoDataBadge type="validated" label="Port Limits Verified" />
             </div>
             <button className="sail-period-btn">East Coast (All Ports) ▾</button>
           </div>

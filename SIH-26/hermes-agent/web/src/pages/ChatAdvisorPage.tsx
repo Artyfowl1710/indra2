@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Sparkles,
   Paperclip,
@@ -12,14 +12,13 @@ import {
   FileText,
   X,
   Anchor,
-  TrendingUp,
-  Clock,
   Zap,
-  Ship,
-  Layers,
   Download,
+  Database,
+  ShieldCheck,
 } from "lucide-react";
 import { usePageHeader } from "@/contexts/usePageHeader";
+import { copyTextToClipboard } from "@/lib/clipboard";
 import "./chat-advisor.css";
 
 interface AttachedFile {
@@ -32,7 +31,13 @@ interface AttachedFile {
 interface ToolExecution {
   tool: string;
   summary: string;
-  data?: any;
+  data?: unknown;
+}
+
+let msgIdSeq = 0;
+function nextMessageId(prefix: string): string {
+  msgIdSeq += 1;
+  return `${prefix}-${Date.now()}-${msgIdSeq}`;
 }
 
 interface Message {
@@ -273,7 +278,7 @@ export default function ChatAdvisorPage() {
     if (!promptToSend && attachedFiles.length === 0) return;
     if (isLoading) return;
 
-    const userMessageId = `user-${Date.now()}`;
+    const userMessageId = nextMessageId("user");
     const userMessage: Message = {
       id: userMessageId,
       role: "user",
@@ -320,7 +325,7 @@ export default function ChatAdvisorPage() {
       }
 
       const data = await response.json();
-      const assistantMessageId = `ai-${Date.now()}`;
+      const assistantMessageId = nextMessageId("ai");
       const assistantMessage: Message = {
         id: assistantMessageId,
         role: "assistant",
@@ -336,12 +341,13 @@ export default function ChatAdvisorPage() {
       if (data.reasoning) {
         setExpandedCots((prev) => ({ ...prev, [assistantMessageId]: true }));
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Chat Advisor Error:", err);
+      const errMsg = err instanceof Error ? err.message : String(err);
       const errorMessage: Message = {
-        id: `ai-err-${Date.now()}`,
+        id: nextMessageId("ai-err"),
         role: "assistant",
-        content: `⚠️ **Advisory Connection Alert**: Could not reach backend advisor endpoint (${err.message}). Reverting to cached East Coast maritime models.\n\n* **Paradip Wait:** 3.2 days (Moderate Risk)\n* **Dhamra Capesize Draft:** 18.0 m (Optimal)\n* **Supramax Spot Baseline:** $14,250/day`,
+        content: `⚠️ **Advisory Connection Alert**: Could not reach backend advisor endpoint (${errMsg}). Reverting to cached East Coast maritime models.\n\n* **Paradip Wait:** 3.2 days (Moderate Risk)\n* **Dhamra Capesize Draft:** 18.0 m (Optimal)\n* **Supramax Spot Baseline:** $14,250/day`,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -364,9 +370,12 @@ export default function ChatAdvisorPage() {
   };
 
   const handleCopy = (text: string, id: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
+    void copyTextToClipboard(text).then((copied) => {
+      if (copied) {
+        setCopiedId(id);
+        setTimeout(() => setCopiedId(null), 2000);
+      }
+    });
   };
 
   const clearChat = () => {
@@ -398,9 +407,9 @@ export default function ChatAdvisorPage() {
           <div className="advisor-title-box">
             <h2>
               AI Chat Advisor &amp; Forecaster
-              <span className="advisor-badge online">● Live</span>
+              <span className="advisor-badge demo" title="Traffic queue and freight spot rate values are calibrated demonstration models">● Demo Mode</span>
             </h2>
-            <p>SAIL Maritime Procurement Intelligence • Chain-of-Thought (CoT) Engine • Live AIS Port Feeds</p>
+            <p>SAIL Maritime Procurement Intelligence • Chain-of-Thought (CoT) Engine • Calibrated Port Telemetry</p>
           </div>
         </div>
 
@@ -409,8 +418,11 @@ export default function ChatAdvisorPage() {
             <span className="advisor-badge model" title="Active Reasoning LLM">
               <Brain size={12} /> Dots-3 MoE (CoT)
             </span>
-            <span className="advisor-badge tool" title="Integrated SAIL Knowledge Base">
-              <Layers size={12} /> RAG Enabled
+            <span className="advisor-badge tool" title="Validated East Coast Port Parameters & Operational Directives">
+              <ShieldCheck size={12} /> Port Specs Verified
+            </span>
+            <span className="advisor-badge demo" title="Queue and freight projections are based on calibrated demonstration data">
+              <Database size={12} /> Demo Data
             </span>
           </div>
 
@@ -435,6 +447,23 @@ export default function ChatAdvisorPage() {
               Ask any question on Newcastle or Gladstone coal fixtures, time-series freight predictions, draft limits,
               demurrage sensitivities, or attach a charter party document.
             </p>
+            <div style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "8px",
+              padding: "6px 12px",
+              borderRadius: "6px",
+              background: "#fffbeb",
+              border: "1px solid #fde68a",
+              color: "#92400e",
+              fontSize: "0.74rem",
+              marginTop: "12px",
+              maxWidth: "680px",
+              textAlign: "left"
+            }}>
+              <ShieldCheck size={16} style={{ flexShrink: 0, color: "#059669" }} />
+              <span><strong>Data Notice [Demo Dataset]:</strong> Physical port constraints (draft, LOA, beam) are verified against official Major Port Handbooks. Daily traffic queues and spot fixtures are simulated demonstration values.</span>
+            </div>
 
             <div className="advisor-prompts-grid">
               {INITIAL_PROMPTS.map((p, i) => (
@@ -634,7 +663,7 @@ export default function ChatAdvisorPage() {
         <div className="advisor-dock-footer">
           <span>🧠 CoT Model: <strong>Dots-3 MoE</strong> via OpenRouter</span>
           <span>•</span>
-          <span>⚡ Live RAG on SAIL Procurement &amp; East Coast Port Limits</span>
+          <span>⚡ Validated Port Limits &amp; Calibrated RAG (Demo Dataset)</span>
         </div>
       </div>
     </div>

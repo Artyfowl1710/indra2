@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./maritime-pages.css";
 import { usePageHeader } from "@/contexts/usePageHeader";
+import { DemoDataBadge, DataNoticeBanner } from "@/components/DemoDataBadge";
+import { PORTS_CONGESTION as DEFAULT_CONGESTION, fetchMaritimeTelemetry } from "@/lib/maritime-data";
 import {
   Activity,
   AlertTriangle,
@@ -11,44 +13,10 @@ import {
   Anchor,
 } from "lucide-react";
 
-/* ── Port Congestion Data ────────────────────────────────────── */
-const PORTS_CONGESTION = [
-  {
-    name: "Paradip", waitDays: 2.1, vessels: 8, berths: 12, utilization: 67,
-    status: "normal", weather: "Clear", tide: "High tide at 14:30",
-    trend: [1.8, 2.0, 2.5, 2.3, 2.1, 1.9, 2.1],
-  },
-  {
-    name: "Vizag", waitDays: 3.4, vessels: 14, berths: 16, utilization: 88,
-    status: "moderate", weather: "Partly cloudy", tide: "Low tide at 11:00",
-    trend: [2.1, 2.8, 3.0, 3.2, 3.5, 3.3, 3.4],
-  },
-  {
-    name: "Gangavaram", waitDays: 5.2, vessels: 11, berths: 8, utilization: 95,
-    status: "congested", weather: "Rain expected", tide: "High tide at 16:45",
-    trend: [3.5, 4.0, 4.2, 4.8, 5.0, 5.1, 5.2],
-  },
-  {
-    name: "Haldia", waitDays: 4.0, vessels: 6, berths: 8, utilization: 75,
-    status: "moderate", weather: "Hazy", tide: "Draft-restricted until 08:00",
-    trend: [3.2, 3.5, 3.8, 4.2, 4.0, 3.8, 4.0],
-  },
-  {
-    name: "Dhamra", waitDays: 1.2, vessels: 4, berths: 6, utilization: 50,
-    status: "normal", weather: "Clear", tide: "No restrictions",
-    trend: [1.5, 1.3, 1.4, 1.2, 1.0, 1.1, 1.2],
-  },
-  {
-    name: "Gopalpur", waitDays: 1.8, vessels: 3, berths: 4, utilization: 55,
-    status: "normal", weather: "Clear", tide: "High tide at 09:15",
-    trend: [2.0, 1.8, 1.9, 2.1, 1.8, 1.7, 1.8],
-  },
-];
-
 const ALERTS = [
-  { port: "Gangavaram", type: "congestion", message: "Wait time exceeds 5 days — consider Dhamra as alternative", severity: "high", time: "1h ago" },
+  { port: "Gangavaram", type: "congestion", message: "Wait time exceeds 5 days (Demo simulation) — consider Dhamra as alternative", severity: "high", time: "1h ago" },
   { port: "Vizag", type: "weather", message: "Cyclone warning: IMD tracking depression in Bay of Bengal", severity: "medium", time: "3h ago" },
-  { port: "Haldia", type: "draft", message: "Neap tide period — max draft restricted to 7.8m until Oct 5", severity: "medium", time: "6h ago" },
+  { port: "Haldia", type: "draft", message: "Neap tide period — max draft restricted to 7.8m until Oct 5 (Validated constraint)", severity: "medium", time: "6h ago" },
   { port: "Paradip", type: "operational", message: "Berth 7 under maintenance — reduced capacity until Oct 15", severity: "low", time: "12h ago" },
 ];
 
@@ -78,6 +46,7 @@ function WaitTrend({ data, status }: { data: number[]; status: string }) {
 
 export default function PortCongestionPage() {
   const { setAfterTitle, setEnd } = usePageHeader();
+  const [portsData, setPortsData] = useState(DEFAULT_CONGESTION);
 
   useEffect(() => {
     setAfterTitle(null);
@@ -85,15 +54,46 @@ export default function PortCongestionPage() {
     return () => { setAfterTitle(null); setEnd(null); };
   }, [setAfterTitle, setEnd]);
 
+  useEffect(() => {
+    fetchMaritimeTelemetry().then(telemetry => {
+      if (telemetry?.ports && typeof telemetry.ports === "object") {
+        // Enriched with live/backend data if available
+        const ports = telemetry.ports as Record<string, { avg_wait_days?: number; queue_vessels?: number; spec_source?: string }>;
+        setPortsData(prev => prev.map(p => {
+          const remote = ports[p.name];
+          if (remote) {
+            return {
+              ...p,
+              waitDays: remote.avg_wait_days ?? p.waitDays,
+              vessels: remote.queue_vessels ?? p.vessels,
+              specSource: remote.spec_source ?? p.specSource,
+            };
+          }
+          return p;
+        }));
+      }
+    });
+  }, []);
+
   return (
     <main className="ff-page">
       <div className="mi-header">
         <div>
           <span className="mi-overline">INDRA / PORT CONGESTION</span>
           <h2>Congestion Radar</h2>
-          <p>Real-time port congestion monitoring, weather conditions, and disruption alerts for East Coast India.</p>
+          <p>East Coast Indian port queue modeling, berth utilization, and disruption alerts (Demo Simulation).</p>
+        </div>
+        <div className="mi-header-meta">
+          <DemoDataBadge type="simulated" label="Simulated AIS Telemetry" />
+          <DemoDataBadge type="validated" label="Port Limits Verified" />
         </div>
       </div>
+
+      {/* Notice Banner */}
+      <DataNoticeBanner
+        title="Simulated Port Telemetry & Verified Constraints"
+        description="Physical port specifications (draft ceilings, max DWT, berth handling facilities) are verified against official Indian Major Port Authority handbooks. Daily vessel queues and wait days are simulated demonstration figures."
+      />
 
       {/* Alerts */}
       {ALERTS.length > 0 && (
@@ -101,6 +101,7 @@ export default function PortCongestionPage() {
           <div className="mi-card-header">
             <AlertTriangle size={16} style={{ color: "#f59e0b" }} />
             <span>Active Disruption Alerts</span>
+            <DemoDataBadge type="demo" label="Demo Scenarios" />
             <span className="mi-badge warn">{ALERTS.length} active</span>
           </div>
           <div className="pc-alerts">
@@ -123,7 +124,7 @@ export default function PortCongestionPage() {
 
       {/* Port Cards Grid */}
       <div className="pc-grid">
-        {PORTS_CONGESTION.map(port => (
+        {portsData.map(port => (
           <section key={port.name} className={`mi-card pc-port-card ${port.status}`}>
             <div className="pc-port-header">
               <div className="pc-port-name">
@@ -133,6 +134,10 @@ export default function PortCongestionPage() {
                   {port.status === "congested" ? "CONGESTED" : port.status === "moderate" ? "MODERATE" : "NORMAL"}
                 </span>
               </div>
+              <div style={{ display: "flex", gap: "6px", marginTop: "6px" }}>
+                <DemoDataBadge type="validated" label="Verified Limits" showIcon={false} />
+                <DemoDataBadge type="simulated" label="Demo Queue" showIcon={false} />
+              </div>
             </div>
 
             <div className="pc-port-stats">
@@ -140,14 +145,14 @@ export default function PortCongestionPage() {
                 <Clock size={14} />
                 <div>
                   <span className="pc-stat-value">{port.waitDays}d</span>
-                  <span className="pc-stat-label">Avg Wait</span>
+                  <span className="pc-stat-label">Avg Wait (Sim)</span>
                 </div>
               </div>
               <div className="pc-stat">
                 <Ship size={14} />
                 <div>
                   <span className="pc-stat-value">{port.vessels}</span>
-                  <span className="pc-stat-label">Vessels</span>
+                  <span className="pc-stat-label">Vessels (Sim)</span>
                 </div>
               </div>
               <div className="pc-stat">
@@ -160,7 +165,7 @@ export default function PortCongestionPage() {
             </div>
 
             <div className="pc-port-trend">
-              <span className="pc-trend-label">7-day wait time trend</span>
+              <span className="pc-trend-label">7-day wait time trend (Simulated)</span>
               <WaitTrend data={port.trend} status={port.status} />
             </div>
 
@@ -173,6 +178,10 @@ export default function PortCongestionPage() {
                 <Waves size={12} />
                 <span>{port.tide}</span>
               </div>
+            </div>
+
+            <div style={{ marginTop: "0.8rem", paddingTop: "0.6rem", borderTop: "1px solid #f1f5f9", fontSize: "0.68rem", color: "#94a3b8" }}>
+              Limits: {port.specSource}
             </div>
           </section>
         ))}
